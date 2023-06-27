@@ -42,7 +42,6 @@ class StudentAddForm extends StatelessWidget {
                             StudentTextFormField(hintText: 'Father NIC', labelText: 'Enter Father NIC',),
                             StudentTextFormField(hintText: 'Father Mobile Number', labelText: 'Enter Father Mobile Number',),
                             StudentTextFormField(hintText: 'DOB', labelText: 'Enter Student DOB',),
-
                           ],
                         ),
                         Column(
@@ -54,7 +53,6 @@ class StudentAddForm extends StatelessWidget {
                             StudentTextFormField(hintText: 'hint text', labelText: 'label Text',),
                             StudentTextFormField(hintText: 'hint text', labelText: 'label Text',),
                             StudentTextFormField(hintText: 'hint text', labelText: 'label Text',),
-
                           ],
                         ),
                       ],

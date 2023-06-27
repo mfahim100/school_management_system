@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:school_manegment_system/UI/home/home_screen.dart';
 import '../../core/constant/constant_decoration.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_filed.dart';
@@ -89,7 +90,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             SizedBox(
                                 width: w * 28,
                                 height: h*08,
-                                child: CustomButton(text: 'Sign In', onPressed: () {})),
+                                child: CustomButton(text: 'Sign In', onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (builder){
+                                    return const HomeScreen();
+                                  }));
+                                }
+                                ),
+                            ),
                           ],
                         ),
                       ),

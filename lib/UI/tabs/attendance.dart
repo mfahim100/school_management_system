@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/attendance%20_button.dart';
+import 'package:school_manegment_system/core/providers/menu_aap_provider.dart';
 import '../../../core/constant/constant_decoration.dart';
+import '../widgets/attendance_sheet.dart';
 import '../widgets/custom_class_list_button.dart';
 
 
@@ -12,7 +15,9 @@ class Attendance extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
     double w = size.width / 100;
-    return SizedBox(
+    return Consumer<MenuAapProvider>(
+  builder: (context, menuAapProvider, child) {
+  return SizedBox(
       width: 73 * w,
       height: 80*h,
       child:  Column(
@@ -29,24 +34,48 @@ class Attendance extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CustomAttendanceButton(text: 'Class 10th', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 9th', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 8th', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 7th', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 6th', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 5th', onPressed: (){}),
+                      CustomAttendanceButton(text: 'Class 10th', onPressed: (){
+                            menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 9th', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 8th', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 7th', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 6th', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 5th', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
 
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CustomAttendanceButton(text: 'Class 4th', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 3rd', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 2nd', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class 1st', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class KG', onPressed: (){}),
-                      CustomAttendanceButton(text: 'Class Nursery', onPressed: (){}),
+                      CustomAttendanceButton(text: 'Class 4th', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 3rd', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 2nd', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class 1st', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class KG', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
+                      CustomAttendanceButton(text: 'Class Nursery', onPressed: (){
+                        menuAapProvider.setIndexTab(6);
+                      }),
 
 
                     ],
@@ -61,5 +90,7 @@ class Attendance extends StatelessWidget {
         ],
       ),
     );
+  },
+);
   }
 }
