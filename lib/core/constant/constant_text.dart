@@ -2,5 +2,5 @@
 
 class ConstantText{
 
-  static var schoolName = 'Shaheen Public High School';
+  static var schoolName = 'FAROOQIA Education & Modern Science School System';
 }

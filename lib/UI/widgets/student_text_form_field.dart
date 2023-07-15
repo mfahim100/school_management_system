@@ -10,7 +10,7 @@ class StudentTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final Icon? suffix;
   final int? maxLength;
-  final TextEditingController? controller = TextEditingController();
+  TextEditingController? controller = TextEditingController();
   final String? Function(String?)? validator;
 
   StudentTextFormField({
@@ -24,6 +24,7 @@ class StudentTextFormField extends StatelessWidget {
     this.suffix,
     this.maxLength,
     this.validator,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class StudentTextFormField extends StatelessWidget {
     double w = size.width / 100;
     return SizedBox(
       width: 25*w,
-      height: 08*h,
+      height: 10*h,
       child: TextFormField(
         style: const TextStyle(color: Colors.white),
         maxLength: maxLength,
@@ -53,8 +54,9 @@ class StudentTextFormField extends StatelessWidget {
             prefixIcon: prefix,
             suffixIcon: suffix,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10*w),
-            )),
+              borderRadius: BorderRadius.circular(0.8*w),
+            )
+        ),
       ),
     );
   }

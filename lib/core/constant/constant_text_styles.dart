@@ -13,7 +13,7 @@ class ConstantTextStyles{
 /////////////// Admin LOGIN PAGE/////////////////////////
   static var schoolNameStyle = const TextStyle(
     // GoogleFonts.satisfy
-      fontSize: 28,
+      fontSize: 40  ,
       fontWeight: FontWeight.bold,
     color: Colors.white,
   );

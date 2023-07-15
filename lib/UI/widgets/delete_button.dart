@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../core/constant/constant_text_styles.dart';
 
 
-class StudentDetaileButton extends StatelessWidget {
+class DeleteButton extends StatelessWidget {
   final bool isSmall;
   final String text;
   final Function() onPressed;
 
-  const StudentDetaileButton({
+  const DeleteButton({
     Key? key,
     required this.text,
     required this.onPressed,
@@ -27,13 +27,13 @@ class StudentDetaileButton extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5*w)),
+              color: Colors.red, borderRadius: BorderRadius.circular(5*w)),
           child: Center(
               child: Text(
                 text,
                 style:TextStyle(
-                  fontSize: 2.5*h,
-                  fontWeight: FontWeight.bold
+                    fontSize: 2.5*h,
+                    fontWeight: FontWeight.bold
                 ),
               )),
         ),

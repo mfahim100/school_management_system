@@ -1,88 +1,112 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:school_manegment_system/UI/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
+import 'package:school_manegment_system/UI/tabs/view_detail.dart';
+import 'package:school_manegment_system/UI/widgets/delete_dialogue.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
+import 'package:school_manegment_system/core/providers/student_provider.dart';
 
+import '../../core/models/Students.dart';
+import '../widgets/delete_button.dart';
 
 class ShowAllStudent extends StatelessWidget {
   const ShowAllStudent({Key? key}) : super(key: key);
 
   @override
+  @override
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
     double w = size.width / 100;
-    return SizedBox(
-      width: 73 * w,
-      height: 80*h,
-      child: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: [
-              Container(
-                height: 25*h,
-                width: 50*w,
-               decoration: ConstantDecoration.adminPanelContainer,
-                child:   Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Consumer<StudentProvider>(
+      builder: (context, studentProvider, child) {
+        return SizedBox(
+          width: 73 * w,
+          height: 80 * h,
+          child: ListView.builder(
+            itemCount: studentProvider.getStudentByClassList.length,
+            itemBuilder: (BuildContext context, int index) {
+              Students mdl = studentProvider.getStudentByClassList[index];
+              return Column(
+                children: [
+                  Container(
+                    height: 25 * h,
+                    width: 50 * w,
+                    decoration: ConstantDecoration.adminPanelContainer,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('10033GG',style: GoogleFonts.abel(
-                          fontSize: 04.5*h,
-                          color: Colors.white
+                        Padding(
+                          padding: EdgeInsets.all(0.5 * h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                mdl.admissionNumber!,
+                                style: GoogleFonts.abel(
+                                    fontSize: 04.5 * h, color: Colors.white),
+                              ),
+                              Text(
+                                mdl.name!,
+                                style: GoogleFonts.abel(
+                                    fontSize: 04.5 * h, color: Colors.white),
+                              ),
+                              Text(
+                                mdl.fatherName!,
+                                style: GoogleFonts.abel(
+                                    fontSize: 04.5 * h, color: Colors.white),
+                              ),
+                              Text(
+                                mdl.address!,
+                                style: GoogleFonts.abel(
+                                    fontSize: 04.5 * h, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            StudentDetaileButton(
+                                text: 'View Details',
+                                onPressed: () {
+                                  showDialog(
+                                    barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return ViewDetail(mdl: mdl,);
+                                      });
+                                }),
+                            DeleteButton(
+                                text: 'Delete',
+                                onPressed: () {
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return DeleteDialogue(
+                                          sid: int.parse(mdl.admissionNumber!),
+                                          cls: mdl.admittedClass!,
+                                        );
+                                      });
+                                }),
+                          ],
                         ),
-                        Text('Muhammad Fahim',style: GoogleFonts.abel(
-                            fontSize: 04.5*h,
-                            color: Colors.white
-                        ),),
-                        Text('Muhammad Ghaffar',style: GoogleFonts.abel(
-                            fontSize: 04.5*h,
-                            color: Colors.white
-                        ),),
-                        Text('Zarakhela shamozai swat',style: GoogleFonts.abel(
-                            fontSize: 04.5*h,
-                            color: Colors.white
-                        ),),
-
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                       SizedBox(
-                           width: 10*w,
-                           height: 05*h,
-                           child: StudentDetaileButton(text: 'Fee Details', onPressed: (){})),
-                       SizedBox(
-                           width: 10*w,
-                           height: 05*h,
-                           child: StudentDetaileButton(text: 'Results', onPressed: (){})),
-                       SizedBox(
-                           width: 10*w,
-                           height: 05*h,
-                           child: StudentDetaileButton(text: 'Attendance', onPressed: (){})),
-
-
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: h*2,),
-            ],
-          );
-        },
-
-      ),
+                  ),
+                  SizedBox(
+                    height: h * 2,
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
-
   }
 }

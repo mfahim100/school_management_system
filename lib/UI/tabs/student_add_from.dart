@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:school_manegment_system/UI/widgets/drop_down_menu.dart';
+import 'package:school_manegment_system/core/constant/drop_down_menu_constant.dart';
+import 'package:school_manegment_system/core/providers/student_form_provider.dart';
 import '../../../core/constant/constant_decoration.dart';
-import '../../../core/constant/constant_text_styles.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/student_text_form_field.dart';
 
@@ -12,70 +15,262 @@ class StudentAddForm extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
     double w = size.width / 100;
-    return SizedBox(
-    width: 73 * w,
-        height: 80*h,
-        child: SizedBox(
-          child: Padding(
-            padding: EdgeInsets.all(1*w),
-            child: Column(
-              children: [
-                Center(
-                  child: Text('Add Student',style: ConstantTextStyles.schoolNameStyle,),
-                ),
-                SizedBox(height: 1.5*h,),
-                Container(
-                  width: 70*w,
-                  height: 55*h,
-                  decoration: ConstantDecoration.studentAddFormContainerDecoration,
-                  child:Padding(
-                    padding:  EdgeInsets.all(1*w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            StudentTextFormField(hintText: 'Student Registration', labelText: 'Enter Student Registration Number',),
-                            StudentTextFormField(hintText: 'Student Name', labelText: 'Enter Student Name',),
-                            StudentTextFormField(hintText: 'Student Father Name', labelText: 'Enter Student Father Name',),
-                            StudentTextFormField(hintText: 'Father NIC', labelText: 'Enter Father NIC',),
-                            StudentTextFormField(hintText: 'Father Mobile Number', labelText: 'Enter Father Mobile Number',),
-                            StudentTextFormField(hintText: 'DOB', labelText: 'Enter Student DOB',),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            StudentTextFormField(hintText: 'Address', labelText: 'Enter Student Address',),
-                            StudentTextFormField(hintText: 'Class', labelText: 'Enter Student Class',),
-                            StudentTextFormField(hintText: 'Previous School', labelText: 'Enter Previous School',),
-                            StudentTextFormField(hintText: 'hint text', labelText: 'label Text',),
-                            StudentTextFormField(hintText: 'hint text', labelText: 'label Text',),
-                            StudentTextFormField(hintText: 'hint text', labelText: 'label Text',),
-                          ],
-                        ),
-                      ],
+    return Consumer<StudentFormProvider>(
+      builder: (context, studentFormProvider, child) {
+        return SizedBox(
+          width: 73 * w,
+          height: 80 * h,
+          child: SizedBox(
+            child: Padding(
+              padding: EdgeInsets.all(0.5 * w),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      'Student Information',
+                      style: TextStyle(
+                        // GoogleFonts.satisfy
+                        fontSize: 5 * h,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-
-                SizedBox(
-                    height: h*2,
-                ),
-
-                SizedBox(
-                    height: 07*h,
-                    // width: 30*w,
-                    child: CustomButton(text: 'Submit', onPressed: (){})),
-
-              ],
+                  SizedBox(
+                    height: 2.5 * h,
+                  ),
+                  Container(
+                    width: 80 * w,
+                    height: 60 * h,
+                    decoration:
+                        ConstantDecoration.studentAddFormContainerDecoration,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.all(1 * w),
+                        child: Form(
+                          key: studentFormProvider.studentFormKey,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.nameController,
+                                        validator: studentFormProvider.nameValidator,
+                                        hintText: 'Student Name',
+                                        labelText: 'Enter Student Name',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.fatherCNIC,
+                                        validator: studentFormProvider.fatherCnicValidator,
+                                        hintText: 'Father CNIC',
+                                        labelText: 'Enter Father CNIC',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.fatherOccupation,
+                                        validator: studentFormProvider.fatherOccupationValidator,
+                                        hintText: 'Father Occupation',
+                                        labelText: 'Father Occupation',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.studentSection,
+                                        validator: studentFormProvider.studentSectionValidator,
+                                        hintText: 'Section',
+                                        labelText: 'Student Section',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.address,
+                                        validator: studentFormProvider.addressValidator,
+                                        hintText: 'Permanent Address',
+                                        labelText: 'Permanent Address',
+                                      ),
+                                      CustomDropDownMenu(
+                                        text: 'Select Gender',
+                                        items: DropDownMenuConstant.genderList,
+                                         onChanged: (txt) =>
+                                            studentFormProvider.setGender(txt!),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.fatherName,
+                                        validator: studentFormProvider.fatherNameValidator,
+                                        hintText: 'Student Father Name',
+                                        labelText: 'Enter Student Father Name',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.fatherMobile,
+                                        validator: studentFormProvider.fatherMobileValidator,
+                                        hintText: 'Father Mobile Number',
+                                        labelText: 'Enter Father Mobile Number',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.dOB,
+                                        validator: studentFormProvider.dObValidator,
+                                        hintText: 'DOB',
+                                        labelText: 'Date Of Birth',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.subStudentSection,
+                                        validator: studentFormProvider.studentSubSectionValidator,
+                                        hintText: 'Sub Section',
+                                        labelText: 'Student Sub Section',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.lastSchool,
+                                        hintText: 'School Last Attended',
+                                        labelText: 'School Last Attended',
+                                      ),
+                                      CustomDropDownMenu(
+                                        text: 'Select Religion',
+                                        items: DropDownMenuConstant.religionList,
+                                        onChanged: (txt) =>
+                                            studentFormProvider.setReligion(txt!),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Center(
+                                child: Text(
+                                  'Guardian Information',
+                                  style: TextStyle(
+                                    // GoogleFonts.satisfy
+                                    fontSize: 5 * h,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2.5 * h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.guardianName,
+                                        validator: studentFormProvider.guardianNameValidator,
+                                        hintText: 'Guardian Name',
+                                        labelText: 'Enter Guardian Name',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.guardianCNIC,
+                                        validator: studentFormProvider.guardianCnicValidator,
+                                        hintText: 'Guardian CNIC',
+                                        labelText: 'Enter Guardian CNIC',
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.guardianRelation,
+                                        validator: studentFormProvider.guardianRelationValidator,
+                                        hintText: 'Relationship with Student',
+                                        labelText: 'Relationship with Student',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.guardianMobile,
+                                        validator: studentFormProvider.guardianMobileNumberValidator,
+                                        hintText: 'Guardian Mobile Number',
+                                        labelText: 'Guardian Mobile Number',
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Center(
+                                child: Text(
+                                  'For Office',
+                                  style: TextStyle(
+                                    // GoogleFonts.satisfy
+                                    fontSize: 5 * h,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2.5 * h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.admissionNumber,
+                                       // validator: studentFormProvider.admissionNumberValidator,
+                                        hintText: 'Admission Number',
+                                        labelText: 'Enter Admission Number',
+                                      ),
+                                      StudentTextFormField(
+                                        controller: studentFormProvider.admissionFee,
+                                        validator: studentFormProvider.admissionFeeValidator,
+                                        hintText: 'Admission Fee',
+                                        labelText: 'Enter Admission Fee',
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      CustomDropDownMenu(
+                                        text: 'Admitted In Class',
+                                        items: DropDownMenuConstant.classList,
+                                        onChanged: (txt) =>
+                                            studentFormProvider.setClass(txt!),
+                                     ),
+                                      StudentTextFormField(
+                                        validator: studentFormProvider.admissionDateValidator,
+                                        hintText: 'Admission Date',
+                                        labelText: 'Admission Date',
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: h * 2,
+                  ),
+                  SizedBox(
+                      height: 06 * h,
+                      width: 30 * w,
+                      child: CustomButton(text: 'Submit', onPressed: () {
+                        if(studentFormProvider.studentFormKey.currentState!.validate()){
+                         studentFormProvider.insertData();
+                        }
+                      })),
+                ],
+              ),
             ),
           ),
-
-        ),
-      );
-
-
+        );
+      },
+    );
   }
 }

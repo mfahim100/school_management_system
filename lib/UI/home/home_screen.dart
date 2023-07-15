@@ -153,8 +153,8 @@ class HomeScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   ConstantText.schoolName,
-                                  style: GoogleFonts.satisfy(
-                                    fontSize: 06 * h,
+                                  style: GoogleFonts.anekBangla(
+                                    fontSize: 05 * h,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),

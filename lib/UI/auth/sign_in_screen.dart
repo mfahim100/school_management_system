@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:school_manegment_system/UI/home/home_screen.dart';
+import 'package:school_manegment_system/core/constant/constant_text.dart';
 import '../../core/constant/constant_decoration.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_filed.dart';
@@ -120,9 +121,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 15*h,
                         width: 60*w,
                         child: Center(
-                          child: Text('Shaheen Public high School',
-                              style: GoogleFonts.satisfy(
-                                fontSize: 08 * h,
+                          child: Text(ConstantText.schoolName,
+                              style: GoogleFonts.anekBangla(
+                                fontSize: 04 * h,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               )),
