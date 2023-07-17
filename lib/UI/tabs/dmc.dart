@@ -22,17 +22,17 @@ class _DmcState extends State<Dmc> {
         width: 40*w,
         height: 90*h,
         decoration: ConstantDecoration.studentAddFormContainerDecoration,
-      child: Column(
-        children: [
-          Padding(
-            padding:  EdgeInsets.all(1*w),
-            child: Center(
-              child: Text('Details Marks Sheet',style: ConstantTextStyles.schoolNameStyle,),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding:  EdgeInsets.all(2*w),
+          child: Column(
             children: [
+              Center(
+                child: Text('Details Marks Sheet',style: ConstantTextStyles.schoolNameStyle,),
+              ),
+
+              SizedBox(height: 2*h,),
+
               StudentTextFormField(hintText: 'English', labelText: 'Enter Marks in English',),
               StudentTextFormField(hintText: 'Urdu', labelText: 'Enter Marks in Urdu',),
               StudentTextFormField(hintText: 'Maths', labelText: 'Enter Marks in Maths',),
@@ -41,27 +41,30 @@ class _DmcState extends State<Dmc> {
               StudentTextFormField(hintText: 'Physics', labelText: 'Enter Marks in Physics',),
               StudentTextFormField(hintText: 'Chemistry', labelText: 'Enter Marks in Chemistry',),
               StudentTextFormField(hintText: 'Biology', labelText: 'Enter Marks in Biology',),
-              SizedBox(
-                  height: 07*h,
-                  // width: 30*w,
-                  child: CustomButton(text: 'Submit', onPressed: (){})),
 
-              SizedBox(height: 1.5*h,),
+                 SizedBox(height: 2*h,),
 
-              SizedBox(
-                  height: 07*h,
-                  // width: 30*w,
-                  child: CustomButton(text: 'Cancel', onPressed: (){
-                    Navigator.of(context).pop();
-                  })),
+                 Row(
+               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+               children: [
+                 SizedBox(
+                     height: 06*h,
+                      width: 15*w,
+                     child: CustomButton(text: 'Submit', onPressed: (){})),
+                 SizedBox(
+                     height: 06*h,
+                     width: 15*w,
+                     child: CustomButton(text: 'Cancel', onPressed: (){
+                       Navigator.of(context).pop();
+                     })),
+               ],
+                 ),
+
 
 
             ],
           ),
-
-
-
-        ],
+        ),
       ),
     ),);
   }

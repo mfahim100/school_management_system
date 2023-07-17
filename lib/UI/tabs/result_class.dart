@@ -45,14 +45,24 @@ class ResultClass extends StatelessWidget {
                             const Text("Father Name Of Student",style: TextStyle(
                                 color: Colors.white
                             ),),
-                            
-                            StudentDetaileButton(text: 'View Detail', onPressed: (){
-                              showDialog(
-                                barrierDismissible: false,
-                                  context: context, builder: (context){
-                                return const Dmc();
-                              });
-                            })
+
+                            SizedBox(
+                              width: 10*w,
+                                height: 05*h,
+                                child: StudentDetailButton(text: 'View Detail', onPressed: (){})),
+                            SizedBox(
+                              width: 10*w,
+                              height: 05*h,
+                              child: StudentDetailButton(text: 'Insert Result', onPressed: (){
+                                showDialog(
+                                  barrierDismissible: false,
+                                    context: context, builder: (context){
+                                  return const Dmc();
+                                });
+                              }),
+                            ),
+
+
 
 
                           ],

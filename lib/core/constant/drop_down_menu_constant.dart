@@ -35,5 +35,11 @@ class DropDownMenuConstant {
    'Buddha'
   ];
 
+  static List<String> attendanceTypeList = [
+   'A',
+   'P',
+   'L',
+  ];
+
 
 }

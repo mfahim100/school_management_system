@@ -112,12 +112,41 @@ class StudentAddForm extends StatelessWidget {
                                         hintText: 'Father Mobile Number',
                                         labelText: 'Enter Father Mobile Number',
                                       ),
-                                      StudentTextFormField(
-                                        controller: studentFormProvider.dOB,
-                                        validator: studentFormProvider.dObValidator,
-                                        hintText: 'DOB',
-                                        labelText: 'Date Of Birth',
+                                      // StudentTextFormField(
+                                      //   controller: studentFormProvider.dOB,
+                                      //   validator: studentFormProvider.dObValidator,
+                                      //   hintText:  'Date Of Birth',
+                                      //   labelText: 'Enter Date Of Birth',
+                                      // ),
+                                      Container(
+                                        width: 25*w,
+                                        height: 06*h,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(1*w),
+                                            border: Border.all(
+                                                color: Colors.black, width: 0.08*h)
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () =>
+                                              studentFormProvider.setDOB(context),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 2*w),
+                                              child: Text(
+                                                studentFormProvider
+                                                    .dobString.toString(),style: TextStyle(
+                                                fontSize: 1*w,
+                                                color: Colors.white,
+                                              ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
+
+                                      SizedBox(height: 4*h,),
+
                                       StudentTextFormField(
                                         controller: studentFormProvider.subStudentSection,
                                         validator: studentFormProvider.studentSubSectionValidator,
@@ -239,11 +268,39 @@ class StudentAddForm extends StatelessWidget {
                                         onChanged: (txt) =>
                                             studentFormProvider.setClass(txt!),
                                      ),
-                                      StudentTextFormField(
-                                        validator: studentFormProvider.admissionDateValidator,
-                                        hintText: 'Admission Date',
-                                        labelText: 'Admission Date',
+                                      Container(
+                                        width: 25*w,
+                                        height: 06*h,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(1*w),
+                                            border: Border.all(
+                                                color: Colors.black, width: 0.06*h)
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () =>
+                                              studentFormProvider.setDOA(context),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 2*w),
+                                              child: Text(
+                                                studentFormProvider
+                                                    .doaString.toString(),style: TextStyle(
+                                                fontSize: 1*w,
+                                                color: Colors.white,
+                                              ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
+
+                                      SizedBox(height: 4*h,),
+                                      // StudentTextFormField(
+                                      //   validator: studentFormProvider.admissionDateValidator,
+                                      //   hintText: 'Admission Date',
+                                      //   labelText: 'Admission Date',
+                                      // ),
                                     ],
                                   ),
                                 ],

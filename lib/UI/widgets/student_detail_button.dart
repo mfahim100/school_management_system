@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../core/constant/constant_text_styles.dart';
 
-
-class StudentDetaileButton extends StatelessWidget {
+class StudentDetailButton extends StatelessWidget {
   final bool isSmall;
   final String text;
   final Function() onPressed;
+  final bool isSelected;
 
-  const StudentDetaileButton({
+  const StudentDetailButton({
     Key? key,
     required this.text,
     required this.onPressed,
-    this.isSmall=false,
+    this.isSmall = false,
+    this.isSelected = false,
   }) : super(key: key);
 
   @override
@@ -20,23 +21,19 @@ class StudentDetaileButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
     double w = size.width / 100;
-    return SizedBox(
-      width: 12*w,
-      height: 06.5*h,
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5*w)),
-          child: Center(
-              child: Text(
-                text,
-                style:TextStyle(
-                  fontSize: 2.5*h,
-                  fontWeight: FontWeight.bold
-                ),
-              )),
-        ),
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        width: 12 * w,
+        height: 06.5 * h,
+        decoration: BoxDecoration(
+            color: isSelected ? Colors.blueGrey : Colors.white,
+            borderRadius: BorderRadius.circular(5 * w)),
+        child: Center(
+            child: Text(
+          text,
+          style: TextStyle(fontSize: 2.5 * h, fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }

@@ -79,7 +79,7 @@ class Students {
     map['Father_CNIC'] = int.parse(fatherCNIC!);
     map['Father_MOBILE'] = int.parse(fatherMOBILE!);
     map['Father_Occupation'] = fatherOccupation;
-    map['DOB'] =161231231231;
+    map['DOB'] =dob;
     map['Student_Section'] = studentSection;
     map['Student_Sub_Section'] = studentSubSection;
     map['Address'] = address;
@@ -92,7 +92,7 @@ class Students {
     map['Guardian_Mobile'] = int.parse(guardianMobile!);
     map['Admitted_Class'] = admittedClass;
     map['Admission_Fee'] = int.parse(admissionFee!);
-    map['Admission_Date'] = 161231231231;
+    map['Admission_Date'] = admissionDate;
     return map;
   }
 

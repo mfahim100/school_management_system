@@ -31,7 +31,7 @@ class DeleteDialogue extends StatelessWidget {
                     color: Colors.white
                 ),),
 
-                SizedBox(height: 8*h,),
+                SizedBox(height: 7*h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -40,7 +40,7 @@ class DeleteDialogue extends StatelessWidget {
                       studentProvider.getStudentByClassProvider(cls);
                       Navigator.of(context).pop();
                     }),
-                    StudentDetaileButton(text: 'Cancel',onPressed: (){
+                    StudentDetailButton(text: 'Cancel',onPressed: (){
                       Navigator.of(context).pop();
                     },)
                   ],

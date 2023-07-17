@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:school_manegment_system/core/providers/attendance_provider.dart';
 import 'package:school_manegment_system/core/providers/menu_aap_provider.dart';
 import 'package:school_manegment_system/core/providers/student_provider.dart';
+import 'package:school_manegment_system/core/providers/update_student_provider.dart';
 import 'UI/auth/sign_in_screen.dart';
 import 'core/providers/student_form_provider.dart';
 
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=> MenuAapProvider()),
         ChangeNotifierProvider(create: (_)=> StudentProvider()),
         ChangeNotifierProvider(create: (_)=> StudentFormProvider()),
+        ChangeNotifierProvider(create: (_)=> UpdateStudentProvider()),
+        ChangeNotifierProvider(create: (_)=> AttendanceProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -70,7 +70,7 @@ class ShowAllStudent extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            StudentDetaileButton(
+                            StudentDetailButton(
                                 text: 'View Details',
                                 onPressed: () {
                                   showDialog(

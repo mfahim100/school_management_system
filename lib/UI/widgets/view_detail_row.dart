@@ -24,7 +24,7 @@ class ViewDetailRow extends StatelessWidget {
               text,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 1.7 * w,
+                fontSize: 1.2 * w,
                 color: Colors.white
               ),
             ),
@@ -32,13 +32,13 @@ class ViewDetailRow extends StatelessWidget {
               value,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 1.7 * w,
+                fontSize: 1.2 * w,
               ),
             ),
           ],
         ),
         SizedBox(height: 0.5*h,),
-        Divider(height: 0.5*h,color: Colors.white,)
+        Divider(height: 0.2*h,color: Colors.white,)
       ],
     );
   }

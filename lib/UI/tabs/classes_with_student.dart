@@ -71,7 +71,7 @@ class ClassesWithStudents extends StatelessWidget {
                                   }, studentStrength: '20'),
                                   CustomClassListButton(text: 'Class 3rd', onPressed: (){
                                     menuAapProvider.setIndexTab(5);
-                                    studentProvider.getStudentByClassProvider('10th');
+                                    studentProvider.getStudentByClassProvider('3rd');
                                   }, studentStrength: '20'),
                                   CustomClassListButton(text: 'Class 2nd', onPressed: (){
                                     menuAapProvider.setIndexTab(5);

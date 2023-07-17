@@ -31,7 +31,6 @@ class StudentProvider extends ChangeNotifier{
   Future<void> deleteStudentBySid(String sid) async {
     DatabaseServices db = DatabaseServices();
       await db.deleteStudent(sid);
-
     notifyListeners();
   }
 

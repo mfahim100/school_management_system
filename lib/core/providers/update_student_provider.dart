@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:school_manegment_system/core/models/Students.dart';
-import 'package:school_manegment_system/core/services/database_services.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-class StudentFormProvider extends ChangeNotifier {
+import '../services/database_services.dart';
+
+class UpdateStudentProvider extends ChangeNotifier {
   var studentFormKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
+
   TextEditingController get nameController => _nameController;
 
   final TextEditingController _fatherName = TextEditingController();
@@ -94,9 +96,7 @@ class StudentFormProvider extends ChangeNotifier {
   }
 
   String _admittedClass = "";
-
   String get admittedClass => _admittedClass;
-
   setClass(String val) {
     _admittedClass = val;
     print(_admittedClass);
@@ -231,8 +231,11 @@ class StudentFormProvider extends ChangeNotifier {
   String dobString = 'Date of Birth';
   DateTime dobDate = DateTime.now();
   DateTime dobDateSelection = DateTime.now();
+
   setDOB(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     double h = size.height / 100;
     double w = size.width / 100;
     showDialog(
@@ -241,19 +244,19 @@ class StudentFormProvider extends ChangeNotifier {
       builder: (BuildContext context) {
         return Dialog(
           child: SizedBox(
-            width: 40*w,
-            height: 50*h,
+            width: 40 * w,
+            height: 50 * h,
             child: Padding(
-              padding:EdgeInsets.all(2*w),
+              padding: EdgeInsets.all(2 * w),
               child: SfDateRangePicker(
                 view: DateRangePickerView.decade,
                 onCancel: () {
                   Navigator.of(context).pop();
                 },
-                onSubmit: (picker){
+                onSubmit: (picker) {
                   print(picker.toString());
-                  dobDate =dobDateSelection;
-                  dobString="${dobDate.year}-${dobDate.month}-${dobDate.day}";
+                  dobDate = dobDateSelection;
+                  dobString = "${dobDate.year}-${dobDate.month}-${dobDate.day}";
                   notifyListeners();
                   Navigator.of(context).pop();
                 },
@@ -282,8 +285,11 @@ class StudentFormProvider extends ChangeNotifier {
   String doaString = 'Date of Admission';
   DateTime doaDate = DateTime.now();
   DateTime doaDateSelection = DateTime.now();
+
   setDOA(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     double h = size.height / 100;
     double w = size.width / 100;
     showDialog(
@@ -292,20 +298,20 @@ class StudentFormProvider extends ChangeNotifier {
       builder: (BuildContext context) {
         return Dialog(
           child: SizedBox(
-            width: 40*w,
-            height: 50*h,
+            width: 40 * w,
+            height: 50 * h,
             child: Padding(
-              padding:EdgeInsets.all(2*w),
+              padding: EdgeInsets.all(2 * w),
               child: SfDateRangePicker(
                 minDate: DateTime(1900),
                 view: DateRangePickerView.decade,
                 onCancel: () {
                   Navigator.of(context).pop();
                 },
-                onSubmit: (picker){
+                onSubmit: (picker) {
                   print(picker.toString());
-                  doaDate =doaDateSelection;
-                  doaString="${doaDate.year}-${doaDate.month}-${doaDate.day}";
+                  doaDate = doaDateSelection;
+                  doaString = "${doaDate.year}-${doaDate.month}-${doaDate.day}";
                   notifyListeners();
                   Navigator.of(context).pop();
                 },
@@ -328,10 +334,33 @@ class StudentFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void oldData(Students mdl){
+    _nameController.text = mdl.name!;
+    _fatherName.text = mdl.fatherName!;
+    _fatherCNIC.text = mdl.fatherCNIC!;
+    _fatherMobile.text = mdl.fatherMOBILE!;
+    _fatherOccupation.text = mdl.fatherOccupation!;
+    _studentSection.text = mdl.studentSection!;
+    subStudentSection.text = mdl.studentSubSection!;
+    _address.text = mdl.address!;
+    _guardianName.text = mdl.guardianName!;
+    _guardianRelation.text = mdl.guardianRelation!;
+    _guardianCNIC.text = mdl.guardianCNIC!;
+    _guardianMobile.text = mdl.guardianMobile!;
+    _admissionNumber.text = mdl.admissionNumber!;
+    _admissionFee.text = mdl.admissionFee!;
+    _lastSchool.text = mdl.lastSchool!;
+    setClass(mdl.admittedClass!);
+    setReligion(mdl.religion!);
+    setGender(mdl.gender!);
+    String dobb = (mdl.dob).toString();
+
+    notifyListeners();
+
+  }
 
 
-
-  void insertData() {
+  Future<void> updateStudentData()async {
     DateTime adDate=DateTime(2022,12,12);
     String name = _nameController.text.trim();
     String fatherName = _fatherName.text.trim();
@@ -353,7 +382,6 @@ class StudentFormProvider extends ChangeNotifier {
     String admittedClass = _admittedClass;
     String admissionFee = _admissionFee.text.trim();
     String admissionDate = _admissionDate.text.trim();
-
 
     Students std = Students(
       name: name,
@@ -378,16 +406,12 @@ class StudentFormProvider extends ChangeNotifier {
       admissionFee: admissionFee,
     );
     DatabaseServices db = DatabaseServices();
-    db.addStudent(std);
+    db.updateStudent(std);
     print('Every thing gone Find');
     notifyListeners();
 
+
   }
-
- 
-
-
-
 
 
 }
