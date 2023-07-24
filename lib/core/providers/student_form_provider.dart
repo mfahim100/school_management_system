@@ -76,9 +76,7 @@ class StudentFormProvider extends ChangeNotifier {
 
 //**** Drop Down Menu /////////////////////////////////////////
   String _genderSelected = "";
-
   String get genderSelected => _genderSelected;
-
   setGender(String val) {
     _genderSelected = val;
     print(_genderSelected);

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_manegment_system/UI/widgets/attendance%20_button.dart';
+import 'package:school_manegment_system/UI/widgets/all_class_attendance_dialog.dart';
+import 'package:school_manegment_system/UI/widgets/attendance_date_selection_dialog.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/attendance_provider.dart';
 
-import '../../core/constant/drop_down_menu_constant.dart';
 import '../../core/models/Students.dart';
 import 'custom_button.dart';
-import 'custom_class_list_button.dart';
-import 'drop_down_menu.dart';
+
 
 class AttendanceSheet extends StatelessWidget {
   const AttendanceSheet({super.key});
@@ -111,15 +110,44 @@ class AttendanceSheet extends StatelessWidget {
                 SizedBox(
                   height: 2 * h,
                 ),
-                SizedBox(
-                    height: 06 * h,
-                    child: CustomButton(
-                      text: 'Submit',
-                      onPressed: () {
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                        height: 6 * h,
+                        width: 30*w,
+                        child: CustomButton(
+                            text: 'View All Class Attendance',
+                            onPressed: () {
+                              attendanceProvider.getAttendanceByClassProvider();
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context, builder: (context){
+                                return const AllClassAttendanceDialog();
+                              });
+                            }
 
-                        }
+                        )),
+                    SizedBox(
+                        height: 06 * h,
+                        width: 30*w,
+                        child: CustomButton(
+                            text: 'View By Date And Class',
+                            onPressed: () {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context, builder: (context){
+                                return const AttendanceDateSelectionDialog();
 
-                    )),
+                              });
+
+                            }
+
+                        )),
+                  ],
+                )
+
+
               ],
             ),
           ),

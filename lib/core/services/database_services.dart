@@ -1,6 +1,7 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:school_manegment_system/UI/tabs/dmc.dart';
+import 'package:school_manegment_system/core/models/DmcModels.dart';
 import 'package:school_manegment_system/core/models/Students.dart';
 
 import '../models/AttendanceModel.dart';
@@ -122,6 +123,81 @@ class DatabaseServices {
       print('exception $e');
     }
   }
+
+
+  Future<List<AttendanceModel>> getAttendanceByClass(String cls) async {
+    String url = "http://localhost/School_Api/get_attendance_by_class.php";
+    String param = "?Admitted_Class=$cls";
+    List<AttendanceModel> atdList = [];
+    try {
+      var response = await Dio().get(url + param);
+      List<dynamic> jsonList = response.data;
+      for (var element in jsonList) {
+        atdList.add(AttendanceModel.fromJson(element));
+      }
+    } catch (e) {
+      print('Exception is  $e');
+    }
+
+    return atdList;
+  }
+
+
+  Future<List<AttendanceModel>> getAttendanceByClassAndDate(String cls,int date) async {
+    // String url = "http://localhost/School_Api/get_attendance_by_class.php";
+    String url = "http://localhost/School_Api/get_attendance_by_class_and_date.php";
+    String param = "?Admitted_Class=$cls&Date=$date";
+    List<AttendanceModel> atdList = [];
+    try {
+      var response = await Dio().get(url + param);
+      List<dynamic> jsonList = response.data;
+      for (var element in jsonList) {
+        atdList.add(AttendanceModel.fromJson(element));
+      }
+    } catch (e) {
+      print('Exception is  $e');
+    }
+
+    return atdList;
+  }
+
+
+  Future<void> addStudentDmc(DmcModels mdl) async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.followRedirects = true;
+    dio.options.validateStatus;
+    try {
+      print(DmcModels().toJson());
+      var response = await dio.get(
+          'http://localhost/School_Api/insert_dmc_data.php?Admission_Number=${mdl.admissionNumber}&Name=${mdl.name}&Admitted_Class=${mdl.admittedClass}&Exam_Type=${mdl.examType}&English=${mdl.english}&Urdu=${mdl.urdu}&Maths=${mdl.maths}&Islamiat=${mdl.islamiat}&Pak_Study=${mdl.pakStudy}&Chemistry=${mdl.chemistry}&Physics=${mdl.physics}&Biology=${mdl.biology}&Total_Marks=${mdl.totalMarks}&Percentage=${mdl.percentage}&Grade=${mdl.grade}');
+      print("Status Code : ${response.statusCode}");
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+
+  Future<List<DmcModels>> getResultByAdmissionNumberAndName(String name,int admissionNumber) async {
+
+    String url = "http://localhost/School_Api/get_DMC_by_Admission_Number_and_name.php";
+    String param = "?Admission_Number=$admissionNumber&Name=$name";
+    List<DmcModels> dmcList = [];
+    try {
+      var response = await Dio().get(url + param);
+      print(response.data);
+      List<dynamic> jsonList = response.data;
+      for (var element in jsonList) {
+        dmcList.add(DmcModels.fromJson(element));
+      }
+    } catch (e) {
+      print('Exception is  $e');
+    }
+
+    return dmcList;
+  }
+
 
 
 

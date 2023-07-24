@@ -41,5 +41,12 @@ class DropDownMenuConstant {
    'L',
   ];
 
+  static List<String> examType = [
+    '1st',
+    '2nd',
+    '3rd',
+  ];
+
+
 
 }

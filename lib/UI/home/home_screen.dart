@@ -12,7 +12,6 @@ import '../../core/constant/constant_decoration.dart';
 import '../../core/constant/constant_text.dart';
 import '../tabs/attendance.dart';
 import '../tabs/fee_price_structure.dart';
-import '../tabs/result.dart';
 import '../tabs/classes_with_student.dart';
 import '../tabs/dashboard.dart';
 import '../tabs/result_class.dart';
@@ -177,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                             menuAapProvider.indexTab==6?
                                 const AttendanceSheet():
                             menuAapProvider.indexTab==7?
-                                const ExamResult():
+                                const Result():
                             menuAapProvider.indexTab==8?
                                 const FeeStructure():
                             menuAapProvider.indexTab==9?

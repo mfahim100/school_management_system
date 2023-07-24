@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class MenuAapProvider extends ChangeNotifier {
 
 
+
+
+
   int _indexTab=0;
   int get indexTab=>_indexTab;
   setIndexTab(int val){
