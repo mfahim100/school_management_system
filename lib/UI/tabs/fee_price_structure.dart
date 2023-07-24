@@ -57,10 +57,10 @@ class FeePriceStructure extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                 Text(mdl.admissionNumber!.toString(),style: TextStyle(
+                                 Text(mdl.admissionNumber!.toString(),style: const TextStyle(
                                     color: Colors.white
                                 ),),
-                                 Text(mdl.name!,style: TextStyle(
+                                 Text(mdl.name!,style: const TextStyle(
                                     color: Colors.white
                                 ),),
                                 SizedBox(
