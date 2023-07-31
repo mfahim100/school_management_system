@@ -92,9 +92,7 @@ class StudentFormProvider extends ChangeNotifier {
   }
 
   String _admittedClass = "";
-
   String get admittedClass => _admittedClass;
-
   setClass(String val) {
     _admittedClass = val;
     print(_admittedClass);

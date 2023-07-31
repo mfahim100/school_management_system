@@ -9,7 +9,7 @@ class FeeStructureTextField extends StatelessWidget {
   final TextInputType textInputType;
   final Icon? suffix;
   final int? maxLength;
-  TextEditingController? controller = TextEditingController();
+ final TextEditingController controller ;
   final String? Function(String?)? validator;
 
   FeeStructureTextField({
@@ -20,7 +20,7 @@ class FeeStructureTextField extends StatelessWidget {
     this.obscureText = false,
     this.textInputType = TextInputType.text,
     this.suffix,
-    this.controller,
+    required this.controller,
     this.validator,
     this.maxLength,
     this.suffixButton,

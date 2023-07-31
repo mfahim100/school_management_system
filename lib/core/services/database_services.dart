@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:school_manegment_system/UI/tabs/dmc.dart';
 import 'package:school_manegment_system/core/models/DmcModels.dart';
+import 'package:school_manegment_system/core/models/fee_models.dart';
 import 'package:school_manegment_system/core/models/Students.dart';
 
 import '../models/AttendanceModel.dart';
@@ -199,6 +200,59 @@ class DatabaseServices {
   }
 
 
+  Future<void> addStudentFee(FeeModels mdl) async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.followRedirects = true;
+    dio.options.validateStatus;
+    try {
+      print(FeeModels().toJson());
+      var response = await dio.get(
+          'http://localhost/School_Api/insert_student_fee.php?Admission_Number=${mdl.admissionNumber}&Name=${mdl.name}&Father_Name=${mdl.fatherName}&Admitted_Class=${mdl.admittedClass}&Month=${mdl.month}&Total_Fee=${mdl.totalFee}&Status=${mdl.status}');
+      print("Status Code : ${response.statusCode}");
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+
+  Future<List<FeeModels>> getFeeByClass(String cls,int month) async {
+    String url = "http://localhost/School_Api/get_fee_by_class_and_date.php";
+    String param = "?Admitted_Class=$cls&Month=$month";
+    List<FeeModels> feeList = [];
+    try {
+      var response = await Dio().get(url + param);
+      print(response.data);
+      List<dynamic> jsonList = response.data;
+      for (var element in jsonList) {
+        feeList.add(FeeModels.fromJson(element));
+      }
+    } catch (e) {
+      print('Exception is  $e');
+    }
+
+    return feeList;
+  }
+
+
+  Future<List<FeeModels>> getFeeByName(String name,cls) async {
+    String url = "http://localhost/School_Api/get_fee_by_name.php";
+    String param = "?Name=$name&Admitted_Class=$cls";
+    List<FeeModels> feeList = [];
+    try {
+      var response = await Dio().get(url + param);
+      print(response.data);
+      List<dynamic> jsonList = response.data;
+      for (var element in jsonList) {
+        feeList.add(FeeModels.fromJson(element));
+      }
+    } catch (e) {
+      print('Exception is  $e');
+    }
+
+    return feeList;
+  }
 
 
 }
