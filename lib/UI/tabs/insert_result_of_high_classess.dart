@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/delete_button.dart';
 import 'package:school_manegment_system/UI/widgets/drop_down_menu.dart';
 import 'package:school_manegment_system/core/constant/drop_down_menu_constant.dart';
-import 'package:school_manegment_system/core/models/Students.dart';
 import '../../core/constant/constant_decoration.dart';
 import '../../core/constant/constant_text_styles.dart';
+import '../../core/models/StudentsModels.dart';
 import '../../core/providers/result_provider.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/student_text_form_field.dart';
 
-class Dmc extends StatelessWidget {
-  Students mdl = Students();
+class InsertResultOfHighClasses extends StatelessWidget {
+  StudentsModels mdl = StudentsModels();
 
-  Dmc({super.key, required this.mdl});
+  InsertResultOfHighClasses({super.key, required this.mdl});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class Dmc extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(2 * w),
                 child: Form(
-                  key: resultProvider.dmcKey,
+                  key: resultProvider.highClassesDmcKey,
                   child: Column(
                     children: [
                       Center(
@@ -107,12 +107,13 @@ class Dmc extends StatelessWidget {
                               child: CustomButton(
                                   text: 'Submit',
                                   onPressed: () {
-                                    if (resultProvider.dmcKey.currentState!
+                                    if (resultProvider.highClassesDmcKey.currentState!
                                         .validate()) {
-                                      resultProvider.insertExamData(
-                                          int.parse(mdl.admissionNumber!),
+                                      resultProvider.insertHighClassesExamData(
+                                          mdl.admissionNumber!,
                                           mdl.name!,
-                                          mdl.admittedClass);
+                                          mdl.admittedClass,
+                                      mdl.fatherName);
                                     }
                                   })),
                           SizedBox(

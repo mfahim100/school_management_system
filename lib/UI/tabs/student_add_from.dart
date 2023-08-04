@@ -67,6 +67,7 @@ class StudentAddForm extends StatelessWidget {
                                       StudentTextFormField(
                                         controller: studentFormProvider.fatherCNIC,
                                         validator: studentFormProvider.fatherCnicValidator,
+                                        maxLength: 13,
                                         hintText: 'Father CNIC',
                                         labelText: 'Enter Father CNIC',
                                       ),
@@ -109,6 +110,7 @@ class StudentAddForm extends StatelessWidget {
                                       StudentTextFormField(
                                         controller: studentFormProvider.fatherMobile,
                                         validator: studentFormProvider.fatherMobileValidator,
+                                        maxLength: 11,
                                         hintText: 'Father Mobile Number',
                                         labelText: 'Enter Father Mobile Number',
                                       ),
@@ -198,6 +200,7 @@ class StudentAddForm extends StatelessWidget {
                                       StudentTextFormField(
                                         controller: studentFormProvider.guardianCNIC,
                                         validator: studentFormProvider.guardianCnicValidator,
+                                        maxLength: 13,
                                         hintText: 'Guardian CNIC',
                                         labelText: 'Enter Guardian CNIC',
                                       ),
@@ -216,6 +219,7 @@ class StudentAddForm extends StatelessWidget {
                                       StudentTextFormField(
                                         controller: studentFormProvider.guardianMobile,
                                         validator: studentFormProvider.guardianMobileNumberValidator,
+                                        maxLength: 11,
                                         hintText: 'Guardian Mobile Number',
                                         labelText: 'Guardian Mobile Number',
                                       ),

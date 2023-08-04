@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../models/AttendanceModel.dart';
-import '../models/Students.dart';
+import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class AttendanceProvider extends ChangeNotifier {
@@ -12,20 +12,18 @@ class AttendanceProvider extends ChangeNotifier {
   TextEditingController get attendanceTypeController =>
       _attendanceTypeController;
 
-
   String _curruntClass = '';
+
   String get curruntClass => _curruntClass;
-  setCurruntClass(String cls){
+
+  setCurruntClass(String cls) {
     _curruntClass = cls;
     notifyListeners();
   }
 
-
-
-
-
   List<int> stdAttendance = [];
-  List<Students> getStudentByClassList = [];
+  List<StudentsModels> getStudentByClassList = [];
+
   Future<void> getStudentByClassProvider(String cls) async {
     setCurruntClass(cls);
     stdAttendance.clear();
@@ -38,21 +36,22 @@ class AttendanceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void insertAttendanceData(int admissionNumber,date ,String name,type,admittedClass) {
+  void insertAttendanceData(
+      int admissionNumber, date, String name, type, admittedClass) {
     AttendanceModel atd = AttendanceModel(
-    admissionNumber: admissionNumber,
-      admittedClass: admittedClass,
-      name: name,
-      date: date,
-      type: type
-    );
+        admissionNumber: admissionNumber,
+        admittedClass: admittedClass,
+        name: name,
+        date: date,
+        type: type);
     DatabaseServices db = DatabaseServices();
     db.addStudentAttendance(atd);
     print('Every thing gone Find');
     notifyListeners();
   }
 
-  void attendanceAttribute(int admissionNumber, String name,admittedClass,type, int index) {
+  void attendanceAttribute(
+      int admissionNumber, String name, admittedClass, type, int index) {
     stdAttendance[index] = type == "P"
         ? 1
         : type == "A"
@@ -72,24 +71,76 @@ class AttendanceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isFirst = true;
 
+  bool get isFirst => _isFirst;
+
+  setIsFirst(bool val) {
+    _isFirst = val;
+    notifyListeners();
+    AddToSelected();
+  }
+
+  List<AttendanceModel> selectedAttendence = [];
+  List<String> selectedAttendenceDate = [];
 
   List<AttendanceModel> getAttendanceByClassList = [];
+
   Future<void> getAttendanceByClassProvider() async {
     getAttendanceByClassList.clear();
     DatabaseServices db = DatabaseServices();
     getAttendanceByClassList = await db.getAttendanceByClass(_curruntClass);
+
+    // for(int i=0; i<31; i++){
+    //
+    //   getAttendanceByClassList.add(AttendanceModel(id: (i+1),
+    //   admissionNumber: i,
+    //   name: "Ahmad",date: DateTime.now().millisecondsSinceEpoch,type: "P"));
+    // }
     print("___________________________________");
     print(getAttendanceByClassList.length);
     print("___________________________________");
-    notifyListeners();
+    AddToSelected();
 
+    notifyListeners();
   }
 
+  void AddToSelected() {
+    selectedAttendence.clear();
+    selectedAttendenceDate.clear();
+    if (_isFirst) {
+      for (int i = 0; i < 15; i++) {
+        if (getAttendanceByClassList.length > i) {
+          AttendanceModel mdl = getAttendanceByClassList[i];
+          selectedAttendence.add(mdl);
+          DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
+          String date = '${doa.day}/${doa.month}';
+
+          selectedAttendenceDate.add(date);
+
+          notifyListeners();
+        }
+      }
+    } else {
+      for (int i = 15; i <= 32; i++) {
+        if (getAttendanceByClassList.length > i) {
+          AttendanceModel mdl = getAttendanceByClassList[i];
+          selectedAttendence.add(mdl);
+          DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
+          String date = '${doa.day}/${doa.month}';
+
+          selectedAttendenceDate.add(date);
+          notifyListeners();
+        }
+      }
+    }
+    notifyListeners();
+  }
 
   String attendanceString = 'Date of Admission';
   DateTime attendanceDate = DateTime.now();
   DateTime attendanceDateSelection = DateTime.now();
+
   setAttendanceDate(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
@@ -100,20 +151,21 @@ class AttendanceProvider extends ChangeNotifier {
       builder: (BuildContext context) {
         return Dialog(
           child: SizedBox(
-            width: 40*w,
-            height: 50*h,
+            width: 40 * w,
+            height: 50 * h,
             child: Padding(
-              padding:EdgeInsets.all(2*w),
+              padding: EdgeInsets.all(2 * w),
               child: SfDateRangePicker(
                 minDate: DateTime(1900),
                 view: DateRangePickerView.decade,
                 onCancel: () {
                   Navigator.of(context).pop();
                 },
-                onSubmit: (picker){
+                onSubmit: (picker) {
                   print(picker.toString());
-                  attendanceDate =attendanceDateSelection;
-                  attendanceString="${attendanceDate.year}-${attendanceDate.month}-${attendanceDate.day}";
+                  attendanceDate = attendanceDateSelection;
+                  attendanceString =
+                      "${attendanceDate.year}-${attendanceDate.month}-${attendanceDate.day}";
                   notifyListeners();
                   Navigator.of(context).pop();
                 },
@@ -136,30 +188,19 @@ class AttendanceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   // int selectedAttendanceDate = selectedAttendanceDate
 
-
-
-
-
-
-
-
   List<AttendanceModel> getAttendanceByClassAndDateList = [];
+
   Future<void> getAttendanceByClassAndDateProvider() async {
     int selectedAttendanceDate = attendanceDate.millisecondsSinceEpoch;
     getAttendanceByClassAndDateList.clear();
     DatabaseServices db = DatabaseServices();
-    getAttendanceByClassAndDateList = await db.getAttendanceByClassAndDate(_curruntClass,selectedAttendanceDate);
+    getAttendanceByClassAndDateList = await db.getAttendanceByClassAndDate(
+        _curruntClass, selectedAttendanceDate);
     print("___________________________________");
     print(getAttendanceByClassAndDateList.length);
     print("___________________________________");
     notifyListeners();
-
   }
-
-
-
-
 }

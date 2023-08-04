@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:school_manegment_system/core/models/fee_models.dart';
 
-import '../models/Students.dart';
+import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class FeeProvider extends ChangeNotifier {
   List<TextEditingController> feeControllers = [];
   TextEditingController feeSelection = TextEditingController();
 
-  List<Students> getStudentByClassList = [];
+  List<StudentsModels> getStudentByClassList = [];
   Future<void> getStudentByClassProvider(String cls) async {
     setCurruntClass(cls);
     getStudentByClassList.clear();
@@ -46,11 +46,11 @@ class FeeProvider extends ChangeNotifier {
         .millisecondsSinceEpoch;
     for (int i = 0; i< feeControllers.length; i++){
 
-      Students std = getStudentByClassList[i];
+      StudentsModels std = getStudentByClassList[i];
       int feeAmount= int.parse(feeControllers[i].text);
 
       FeeModels mdl = FeeModels(
-        admissionNumber: int.parse(std.admissionNumber!),
+        admissionNumber: std.admissionNumber,
         name: std.name,
         fatherName: std.fatherName,
         admittedClass: std.admittedClass,

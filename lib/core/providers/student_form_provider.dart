@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:school_manegment_system/core/models/Students.dart';
 import 'package:school_manegment_system/core/services/database_services.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import '../models/StudentsModels.dart';
 
 class StudentFormProvider extends ChangeNotifier {
   var studentFormKey = GlobalKey<FormState>();
@@ -334,7 +335,7 @@ class StudentFormProvider extends ChangeNotifier {
     String fatherCNIC = _fatherCNIC.text.trim();
     String fatherMobile = _fatherMobile.text.trim();
     String fatherOccupation = _fatherOccupation.text.trim();
-    String dOB = doaDate.millisecondsSinceEpoch.toString();
+    // String dOB = doaDate.millisecondsSinceEpoch.toString();
     String studentSection = _studentSection.text.trim();
     String subStudentSection = _subStudentSection.text.trim();
     String address = _address.text.trim();
@@ -348,13 +349,13 @@ class StudentFormProvider extends ChangeNotifier {
     String admissionNumber = _admissionNumber.text.trim();
     String admittedClass = _admittedClass;
     String admissionFee = _admissionFee.text.trim();
-    String admissionDate = _admissionDate.text.trim();
+    // String admissionDate = _admissionDate.text.trim();
 
 
-    Students std = Students(
+    StudentsModels std = StudentsModels(
       name: name,
       fatherName: fatherName,
-      fatherCNIC: fatherCNIC,
+      fatherCNIC: int.parse(fatherCNIC),
       fatherMOBILE: fatherMobile,
       fatherOccupation: fatherOccupation,
       dob: dobDate.millisecondsSinceEpoch,
@@ -366,12 +367,12 @@ class StudentFormProvider extends ChangeNotifier {
       religion: religion,
       guardianName: guardianName,
       guardianRelation: guardianRelation,
-      guardianCNIC: guardianCnic,
-      guardianMobile: guardianMobile,
-      admissionNumber: admissionNumber,
+      guardianCNIC: int.parse(guardianCnic),
+      guardianMobile: int.parse(guardianMobile),
+      admissionNumber: int.parse(admissionNumber),
       admittedClass: admittedClass,
       admissionDate: doaDate.millisecondsSinceEpoch,
-      admissionFee: admissionFee,
+      admissionFee: int.parse(admissionFee),
     );
     DatabaseServices db = DatabaseServices();
     db.addStudent(std);

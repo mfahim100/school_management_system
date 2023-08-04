@@ -6,7 +6,7 @@ import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/attendance_provider.dart';
 
-import '../../core/models/Students.dart';
+import '../../core/models/StudentsModels.dart';
 import 'custom_button.dart';
 
 
@@ -37,7 +37,7 @@ class AttendanceSheet extends StatelessWidget {
                     itemCount:
                     attendanceProvider.getStudentByClassList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      Students mdl = attendanceProvider
+                      StudentsModels mdl = attendanceProvider
                           .getStudentByClassList[index];
                       return Container(
                         height: 07 * h,
@@ -67,7 +67,7 @@ class AttendanceSheet extends StatelessWidget {
                                     text: 'P',
                                     onPressed: () {
                                     attendanceProvider.attendanceAttribute(
-                                        int.parse(mdl.admissionNumber!),mdl.name!,
+                                        mdl.admissionNumber!,mdl.name!,
                                         mdl.admittedClass!, 'P',index);
                                   },
 
@@ -83,7 +83,7 @@ class AttendanceSheet extends StatelessWidget {
                                     isSelected: attendanceProvider.stdAttendance[index]==2,
                                     text: 'A', onPressed: () {
                                     attendanceProvider.attendanceAttribute(
-                                        int.parse(mdl.admissionNumber!),mdl.name!,
+                                        mdl.admissionNumber!,mdl.name!,
                                         mdl.admittedClass!, 'A',index);
                                   })
                               ),
@@ -95,7 +95,7 @@ class AttendanceSheet extends StatelessWidget {
                                     isSelected: attendanceProvider.stdAttendance[index]==3,
                                     text: 'L', onPressed: () {
                                     attendanceProvider.attendanceAttribute(
-                                        int.parse(mdl.admissionNumber!),mdl.name!,
+                                        mdl.admissionNumber!,mdl.name!,
                                         mdl.admittedClass!,'L',index);
                                   },)
                               ),
@@ -116,7 +116,7 @@ class AttendanceSheet extends StatelessWidget {
                     SizedBox(
                         height: 6 * h,
                         width: 30*w,
-                        child: CustomButton(
+                        child: StudentDetailButton(
                             text: 'View All Class Attendance',
                             onPressed: () {
                               attendanceProvider.getAttendanceByClassProvider();
@@ -131,7 +131,7 @@ class AttendanceSheet extends StatelessWidget {
                     SizedBox(
                         height: 06 * h,
                         width: 30*w,
-                        child: CustomButton(
+                        child: StudentDetailButton(
                             text: 'View By Date And Class',
                             onPressed: () {
                               showDialog(

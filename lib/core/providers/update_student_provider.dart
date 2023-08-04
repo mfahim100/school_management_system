@@ -1,86 +1,70 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:school_manegment_system/core/models/Students.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class UpdateStudentProvider extends ChangeNotifier {
+
+
+
   var studentFormKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
-
   TextEditingController get nameController => _nameController;
 
   final TextEditingController _fatherName = TextEditingController();
-
   TextEditingController get fatherName => _fatherName;
 
   final TextEditingController _fatherCNIC = TextEditingController();
-
   TextEditingController get fatherCNIC => _fatherCNIC;
 
   final TextEditingController _fatherMobile = TextEditingController();
-
   TextEditingController get fatherMobile => _fatherMobile;
 
   final TextEditingController _fatherOccupation = TextEditingController();
-
   TextEditingController get fatherOccupation => _fatherOccupation;
 
   final TextEditingController _dOB = TextEditingController();
-
   TextEditingController get dOB => _dOB;
 
   final TextEditingController _studentSection = TextEditingController();
-
   TextEditingController get studentSection => _studentSection;
 
   final TextEditingController _subStudentSection = TextEditingController();
-
   TextEditingController get subStudentSection => _subStudentSection;
 
   final TextEditingController _address = TextEditingController();
-
   TextEditingController get address => _address;
 
   final TextEditingController _lastSchool = TextEditingController();
-
   TextEditingController get lastSchool => _lastSchool;
 
   final TextEditingController _guardianName = TextEditingController();
-
   TextEditingController get guardianName => _guardianName;
 
   final TextEditingController _guardianRelation = TextEditingController();
-
   TextEditingController get guardianRelation => _guardianRelation;
 
   final TextEditingController _guardianCNIC = TextEditingController();
-
   TextEditingController get guardianCNIC => _guardianCNIC;
 
   final TextEditingController _guardianMobile = TextEditingController();
-
   TextEditingController get guardianMobile => _guardianMobile;
 
   final TextEditingController _admissionNumber = TextEditingController();
-
   TextEditingController get admissionNumber => _admissionNumber;
 
   final TextEditingController _admissionFee = TextEditingController();
-
   TextEditingController get admissionFee => _admissionFee;
 
   final TextEditingController _admissionDate = TextEditingController();
-
   TextEditingController get admissionDate => _admissionDate;
 
 //**** Drop Down Menu /////////////////////////////////////////
   String _genderSelected = "";
-
   String get genderSelected => _genderSelected;
-
   setGender(String val) {
     _genderSelected = val;
     print(_genderSelected);
@@ -334,21 +318,21 @@ class UpdateStudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void oldData(Students mdl){
+  void oldData(StudentsModels mdl){
     _nameController.text = mdl.name!;
     _fatherName.text = mdl.fatherName!;
-    _fatherCNIC.text = mdl.fatherCNIC!;
-    _fatherMobile.text = mdl.fatherMOBILE!;
+    _fatherCNIC.text = mdl.fatherCNIC!.toString();
+    _fatherMobile.text = mdl.fatherMOBILE!.toString();
     _fatherOccupation.text = mdl.fatherOccupation!;
     _studentSection.text = mdl.studentSection!;
     subStudentSection.text = mdl.studentSubSection!;
     _address.text = mdl.address!;
     _guardianName.text = mdl.guardianName!;
     _guardianRelation.text = mdl.guardianRelation!;
-    _guardianCNIC.text = mdl.guardianCNIC!;
-    _guardianMobile.text = mdl.guardianMobile!;
-    _admissionNumber.text = mdl.admissionNumber!;
-    _admissionFee.text = mdl.admissionFee!;
+    _guardianCNIC.text = mdl.guardianCNIC!.toString();
+    _guardianMobile.text = mdl.guardianMobile!.toString();
+    _admissionNumber.text = mdl.admissionNumber.toString()!;
+    _admissionFee.text = mdl.admissionFee!.toString();
     _lastSchool.text = mdl.lastSchool!;
     setClass(mdl.admittedClass!);
     setReligion(mdl.religion!);
@@ -383,10 +367,10 @@ class UpdateStudentProvider extends ChangeNotifier {
     String admissionFee = _admissionFee.text.trim();
     String admissionDate = _admissionDate.text.trim();
 
-    Students std = Students(
+    StudentsModels std = StudentsModels(
       name: name,
       fatherName: fatherName,
-      fatherCNIC: fatherCNIC,
+      fatherCNIC: int.parse(fatherCNIC),
       fatherMOBILE: fatherMobile,
       fatherOccupation: fatherOccupation,
       dob: dobDate.millisecondsSinceEpoch,
@@ -398,12 +382,12 @@ class UpdateStudentProvider extends ChangeNotifier {
       religion: religion,
       guardianName: guardianName,
       guardianRelation: guardianRelation,
-      guardianCNIC: guardianCnic,
-      guardianMobile: guardianMobile,
-      admissionNumber: admissionNumber,
+      guardianCNIC: int.parse(guardianCnic),
+      guardianMobile: int.parse(guardianMobile),
+      admissionNumber: int.parse(admissionNumber),
       admittedClass: admittedClass,
       admissionDate: doaDate.millisecondsSinceEpoch,
-      admissionFee: admissionFee,
+      admissionFee: int.parse(admissionFee),
     );
     DatabaseServices db = DatabaseServices();
     db.updateStudent(std);

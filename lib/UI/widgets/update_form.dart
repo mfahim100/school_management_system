@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_manegment_system/UI/tabs/student_add_from.dart';
+import 'package:school_manegment_system/UI/widgets/delete_button.dart';
 import 'package:school_manegment_system/UI/widgets/student_text_form_field.dart';
-import 'package:school_manegment_system/core/models/Students.dart';
-import 'package:school_manegment_system/core/providers/student_form_provider.dart';
 import 'package:school_manegment_system/core/providers/student_provider.dart';
 import 'package:school_manegment_system/core/providers/update_student_provider.dart';
 
 import '../../core/constant/constant_decoration.dart';
 import '../../core/constant/drop_down_menu_constant.dart';
+import '../../core/models/StudentsModels.dart';
 import 'custom_button.dart';
 import 'drop_down_menu.dart';
 
 class UpdateForm extends StatelessWidget {
-  Students mdl = Students();
+  StudentsModels mdl = StudentsModels();
 
    UpdateForm({super.key,required this.mdl});
 
@@ -309,17 +308,28 @@ class UpdateForm extends StatelessWidget {
                 SizedBox(
                   height: h * 2,
                 ),
-                SizedBox(
-                    height: 06 * h,
-                    width: 30 * w,
-                    child: CustomButton(text: 'Submit', onPressed: () {
-                      if(updateStudentProvider.studentFormKey.currentState!.validate()){
-                        updateStudentProvider.updateStudentData();
-                        Provider.of<StudentProvider>(context,listen:false).getStudentByClassProvider(mdl.admittedClass!);
-                        Navigator.of(context).pop();
-                       // studentFormProvider.insertData();
-                      }
-                    })),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                        height: 06 * h,
+                        width: 30 * w,
+                        child: CustomButton(text: 'Submit', onPressed: () {
+                          Provider.of<StudentProvider>(context,listen:false).getStudentByClassProvider(mdl.admittedClass!);
+                          if(updateStudentProvider.studentFormKey.currentState!.validate()){
+                            updateStudentProvider.updateStudentData();
+                            Navigator.of(context).pop();
+                           // studentFormProvider.insertData();
+                          }
+                        })),
+                    SizedBox(
+                        height: 06 * h,
+                        width: 30 * w,
+                        child: DeleteButton(text: 'Cancel', onPressed: () {
+                          Navigator.of(context).pop();
+                        })),
+                  ],
+                ),
               ],
             ),
           ),

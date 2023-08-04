@@ -22,96 +22,178 @@ class AllClassAttendanceDialog extends StatelessWidget {
         builder: (context, attendanceProvider,child) {
           return Container(
             decoration: ConstantDecoration.adminPageLogInContainerDecoration,
-            width: 70*w,
-            height: 85*h,
+            width: 90*w,
+            height: 90*h,
             child: Column(
               children: [
                 SizedBox(
-                  width: 80*w,
-                  height: 78*h,
-                  child:attendanceProvider.getAttendanceByClassList.isEmpty?
-                  Center(child: Text("No Data Found",style: TextStyle(
-                      fontSize: 5*w,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                  ),))
-                  :
-                  ListView.builder(
-                    itemCount:
-                     attendanceProvider.getAttendanceByClassList.length,
-                      itemBuilder: (context,index){
-                        AttendanceModel mdl = attendanceProvider.getAttendanceByClassList[index];
-                        DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
-                        String dateOfAdmission = "${doa.year}-${doa.month}-${doa.day}";
-                    return Container(
-                      decoration: ConstantDecoration.adminPageLogInContainerDecoration,
-                      width: 80*w,
-                      height: 07*h,
-                      child: Padding(
-                        padding:  EdgeInsets.all(0.5*w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: 20*w,
-                              child: Text(mdl.name!,style: TextStyle(
-                                  fontSize: 1.5*w,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),),
-                            ),
-
-                            SizedBox(
-                              width: 10*w,
-                              child: Text(mdl.admittedClass!,style: TextStyle(
-                                  fontSize: 1.5*w,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),),
-                            ),
-                            SizedBox(
-                              width: 10*w,
-                              child: Text(mdl.type!,style: TextStyle(
-                                  fontSize: 1.5*w,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),),
-                            ),
-
-                            SizedBox(
-                              width: 20*w,
-                              child: Text(dateOfAdmission,style: TextStyle(
-                                  fontSize: 1.5*w,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),),
-                            ),
-
-
-
-                          ],
+                  height: 08*h,
+                  width: 90*w,
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [
+                  StudentDetailButton(text: "First 15", onPressed: ()=>attendanceProvider.setIsFirst(true)),
+                  StudentDetailButton(text: "Last upto 16", onPressed: ()=>attendanceProvider.setIsFirst(false)),
+                ],),
+                ),
+                SizedBox(
+                  height: 08*h,
+                  width: 90*w,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 14*w,
+                        child: Center(
+                          child: Text('Admission Number',style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 1.5*w
+                          ),),
                         ),
+                      ),
+
+                      SizedBox(width: 1*w,),
+
+                      SizedBox(
+                        width: 17*w,
+                        child: Center(
+                          child: Text('Student Name',style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 1.5*w
+                          ),),
+                        ),
+                      ),
+
+                      SizedBox(width: 1*w,),
+                      SizedBox(
+                        width: 57*w,
+                        child: ListView.builder(
+                             itemCount: attendanceProvider.selectedAttendenceDate.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context,index){
+                              // AttendanceModel mdl = attendanceProvider.selectedAttendence[index];
+                              // DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
+                              // String date = '${doa.day}/${doa.month}';
+                          return Container(
+                            decoration: BoxDecoration(border: Border.all(color: Colors.black54)),
+                            width: 3.5*w,
+                            child: Center(
+                              child: Text(
+                                attendanceProvider.selectedAttendenceDate[index].toString()
+                                ,style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 1*w
+                              ),),
+                            ),
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 2*h,),
+
+                SizedBox(
+                  height: 65*h,
+                  width: 90*w,
+                  child: ListView.builder(
+                    itemCount: attendanceProvider.selectedAttendence.length,
+                      itemBuilder: (context,index){
+                        AttendanceModel mdl = attendanceProvider.selectedAttendence[index];
+                        return SizedBox(
+                      height: 08*h,
+                      width: 90*w,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 14*w,
+                            child: Center(
+                              child: Text(mdl.admissionNumber!.toString(),style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 1.5*w
+                              ),),
+                            ),
+                          ),
+
+                          SizedBox(width: 1*w,),
+
+                          SizedBox(
+                            width: 17*w,
+                            child: Center(
+                              child: Text(mdl.name!,style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 1.5*w
+                              ),),
+                            ),
+                          ),
+
+                          SizedBox(width: 1*w,),
+                          SizedBox(
+                            width: 57*w,
+                            child:
+                            ListView.builder(
+                                itemCount: attendanceProvider.selectedAttendence.length,
+                                // itemCount: attendanceProvider.selectedAttendence.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context,index){
+                                  // AttendanceModel mdl = attendanceProvider.selectedAttendence[index];
+                                  // DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
+                                  // String date = '${doa.day}/${doa.month}';
+                                  return Container(
+                                    decoration: BoxDecoration(border: Border.all(color: Colors.black54)),
+                                    width: 3.5*w,
+                                    child: Center(
+                                      child: Text(
+
+                                        attendanceProvider.selectedAttendence[index].type.toString()
+                                        ,style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 1*w
+                                      ),),
+                                    ),
+                                  );
+                                }),
+                            // ListView.builder(
+                            //     itemCount: attendanceProvider.selectedAttendence.length,
+                            //     scrollDirection: Axis.horizontal,
+                            //     itemBuilder: (context,index){
+                            //       AttendanceModel mdl = attendanceProvider.selectedAttendence[index];
+                            //       return Container(
+                            //         decoration: BoxDecoration(border: Border.all(color: Colors.black54)),
+                            //         width: 3.5 *w,
+                            //         child: Center(
+                            //           child: Text(mdl.type!,style: TextStyle(
+                            //               fontWeight: FontWeight.bold,
+                            //               fontSize: 1*w
+                            //           ),),
+                            //         ),
+                            //       );
+                            //     }),
+                          ),
+                        ],
                       ),
                     );
                   }),
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: 5*h,
-                      width: 15*w,
-                      child: StudentDetailButton(text: 'Print Data', onPressed: (){}),
-                    ),
-                    SizedBox(
-                      height: 5*h,
-                      width: 15*w,
-                      child: DeleteButton(text: 'Cancel', onPressed: (){
-                        Navigator.of(context).pop();
-                      }),
-                    ),
-                  ],
+
+                Container(
+                  decoration: ConstantDecoration.adminPageLogInContainerDecoration,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        height: 5*h,
+                        width: 15*w,
+                        child: StudentDetailButton(text: 'Print Data', onPressed: (){}),
+                      ),
+                      SizedBox(
+                        height: 5*h,
+                        width: 15*w,
+                        child: DeleteButton(text: 'Cancel', onPressed: (){
+                          Navigator.of(context).pop();
+                        }),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

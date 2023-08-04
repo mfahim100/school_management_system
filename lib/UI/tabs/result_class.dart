@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_manegment_system/UI/widgets/show_result_by_class_and_admission_number.dart';
+import 'package:school_manegment_system/UI/tabs/insert_resullt_of_primary_and_middle.dart';
+import 'package:school_manegment_system/UI/widgets/custom_button.dart';
+import 'package:school_manegment_system/UI/widgets/show_all_class_result_of_high_class.dart';
+import 'package:school_manegment_system/UI/widgets/show_result_of_primary_and_middle_classes.dart';
+import 'package:school_manegment_system/UI/widgets/show_result_of_student_of_high_class.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/result_provider.dart';
 
-import '../../core/models/Students.dart';
-import 'dmc.dart';
+import '../../core/models/StudentsModels.dart';
+import 'insert_result_of_high_classess.dart';
 
 class ResultClass extends StatelessWidget {
   const ResultClass({super.key});
@@ -29,7 +33,7 @@ class ResultClass extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: resultProvider.getStudentByClassList.length,
                     itemBuilder: (context,index){
-                      Students mdl = resultProvider.getStudentByClassList[index];
+                      StudentsModels mdl = resultProvider.getStudentByClassList[index];
                       return Container(
                         height: 09*h,
                         width: 75*w,
@@ -61,10 +65,15 @@ class ResultClass extends StatelessWidget {
                                 width:10*w,
                                 height: 05*h,
                                 child: StudentDetailButton(text: 'View Detail', onPressed: (){
-                                  resultProvider.getResultByAdmissionNumberAndNameProvider(mdl.name!, int.parse(mdl.admissionNumber!));
-                                  showDialog(context: context, builder: (context)
+                                  resultProvider.getResultByAdmissionNumberAndNameProvider(mdl.name!, mdl.admissionNumber!);
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context, builder: (context)
                                   {
-                                    return  const ShowResultByClassAndAdmissionNumber();
+                                    return  mdl.admittedClass=='10th'?
+                                      const ShowResultOfStudentOfHighClass():
+                                    mdl.admittedClass=='9th'?const ShowResultOfStudentOfHighClass():
+                                        const ShowResultOfPrimaryAndMiddleClasses();
                                   });
                                 })),
                             SizedBox(
@@ -74,13 +83,12 @@ class ResultClass extends StatelessWidget {
                                 showDialog(
                                     barrierDismissible: false,
                                     context: context, builder: (context){
-                                  return  Dmc(mdl: mdl);
+                                  return mdl.admittedClass == '10th'?
+                                    InsertResultOfHighClasses(mdl: mdl):
+                                  mdl.admittedClass == '9th'? InsertResultOfHighClasses(mdl: mdl):InsertResultOfPrimaryAndMiddle(mdl: mdl);
                                 });
                               }),
                             ),
-
-
-
 
                           ],
                         ),
@@ -88,8 +96,19 @@ class ResultClass extends StatelessWidget {
                     }),
               ),
 
+              SizedBox(
+                  height: 5*h,
+                  width: 20*w,
+                  child: CustomButton(text: 'Show All Class Result', onPressed: (){
+                    resultProvider.getResultByClassProvider();
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context, builder: (context){
+                      return
+                        const ShowAllClassResult();
+                    });
 
-
+                  })),
             ],
           ),
 

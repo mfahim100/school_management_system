@@ -17,7 +17,6 @@ class MenuAapProvider extends ChangeNotifier {
 
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
 
   void controlMenu() {

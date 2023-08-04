@@ -5,8 +5,9 @@ import 'package:school_manegment_system/UI/widgets/fee_structure_textfield.dart'
 import 'package:school_manegment_system/UI/widgets/monthly_fee_dialog.dart';
 import 'package:school_manegment_system/UI/widgets/student_fee_record_dialog.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
-import 'package:school_manegment_system/core/models/Students.dart';
 import 'package:school_manegment_system/core/providers/fee_provider.dart';
+
+import '../../core/models/StudentsModels.dart';
 
 class FeePriceStructure extends StatelessWidget {
 
@@ -60,7 +61,7 @@ class FeePriceStructure extends StatelessWidget {
                     child: ListView.builder(
                         itemCount: feeProvider.getStudentByClassList.length,
                         itemBuilder: (context, index) {
-                          Students mdl =
+                          StudentsModels mdl =
                               feeProvider.getStudentByClassList[index];
                           return Container(
                             height: 07 * h,

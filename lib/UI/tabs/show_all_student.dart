@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:school_manegment_system/UI/tabs/view_detail.dart';
+import 'package:school_manegment_system/UI/tabs/view_student_detail_screen.dart';
 import 'package:school_manegment_system/UI/widgets/delete_dialogue.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/student_provider.dart';
-
-import '../../core/models/Students.dart';
+import '../../core/models/StudentsModels.dart';
 import '../widgets/delete_button.dart';
 
 class ShowAllStudent extends StatelessWidget {
@@ -28,7 +27,7 @@ class ShowAllStudent extends StatelessWidget {
           child: ListView.builder(
             itemCount: studentProvider.getStudentByClassList.length,
             itemBuilder: (BuildContext context, int index) {
-              Students mdl = studentProvider.getStudentByClassList[index];
+              StudentsModels mdl = studentProvider.getStudentByClassList[index];
               return Column(
                 children: [
                   Container(
@@ -45,7 +44,7 @@ class ShowAllStudent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                mdl.admissionNumber!,
+                                mdl.admissionNumber!.toString(),
                                 style: GoogleFonts.abel(
                                     fontSize: 04.5 * h, color: Colors.white),
                               ),
@@ -77,7 +76,8 @@ class ShowAllStudent extends StatelessWidget {
                                     barrierDismissible: false,
                                       context: context,
                                       builder: (context) {
-                                        return ViewDetail(mdl: mdl,);
+                                        return ViewStudentDetailScreen(mdl: mdl);
+
                                       });
                                 }),
                             DeleteButton(
@@ -88,7 +88,7 @@ class ShowAllStudent extends StatelessWidget {
                                       context: context,
                                       builder: (context) {
                                         return DeleteDialogue(
-                                          sid: int.parse(mdl.admissionNumber!),
+                                          sid: mdl.admissionNumber!,
                                           cls: mdl.admittedClass!,
                                         );
                                       });

@@ -1,8 +1,9 @@
-class Students {
-  String? admissionNumber;
+class StudentsModels {
+
+  int? admissionNumber;
   String? name;
   String? fatherName;
-  String? fatherCNIC;
+  int? fatherCNIC;
   String? fatherMOBILE;
   String? fatherOccupation;
   int? dob;
@@ -14,16 +15,14 @@ class Students {
   String? religion;
   String? guardianName;
   String? guardianRelation;
-  String? guardianCNIC;
-  String? guardianMobile;
+  int? guardianCNIC;
+  int? guardianMobile;
   String? admittedClass;
-  String? admissionFee;
+  int? admissionFee;
   int? admissionDate;
 
 
-
-
-  Students({
+  StudentsModels({
       this.admissionNumber, 
       this.name, 
       this.fatherName, 
@@ -45,14 +44,12 @@ class Students {
       this.admissionFee, 
       this.admissionDate,});
 
-  Students.fromJson(dynamic json) {
-
-    print(json['DOB'].runtimeType);
-    admissionNumber = json['Admission_Number'];
+  StudentsModels.fromJson(dynamic json) {
+    admissionNumber = int.parse(json['Admission_Number']);
     name = json['Name'];
     fatherName = json['Father_Name'];
-    fatherCNIC = json['Father_CNIC'].toString();
-    fatherMOBILE = json['Father_MOBILE'].toString();
+    fatherCNIC = int.parse(json['Father_CNIC']);
+    fatherMOBILE = json['Father_MOBILE'];
     fatherOccupation = json['Father_Occupation'];
     dob = int.parse(json['DOB']);
     studentSection = json['Student_Section'];
@@ -63,23 +60,23 @@ class Students {
     religion = json['Religion'];
     guardianName = json['Guardian_Name'];
     guardianRelation = json['Guardian_Relation'];
-    guardianCNIC = json['Guardian_CNIC'].toString();
-    guardianMobile = json['Guardian_Mobile'].toString();
+    guardianCNIC = int.parse(json['Guardian_CNIC']);
+    guardianMobile = int.parse(json['Guardian_Mobile']);
     admittedClass = json['Admitted_Class'];
-    admissionFee = json['Admission_Fee'].toString();
+    admissionFee = int.parse(json['Admission_Fee']);
     admissionDate = int.parse(json['Admission_Date']);
   }
 
-  Map<String, dynamic> toJson() {
 
+  Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['Admission_Number'] =admissionNumber;
+    map['Admission_Number'] = admissionNumber;
     map['Name'] = name;
     map['Father_Name'] = fatherName;
-    map['Father_CNIC'] = int.parse(fatherCNIC!);
-    map['Father_MOBILE'] = int.parse(fatherMOBILE!);
+    map['Father_CNIC'] = fatherCNIC;
+    map['Father_MOBILE'] = fatherMOBILE;
     map['Father_Occupation'] = fatherOccupation;
-    map['DOB'] =dob;
+    map['DOB'] = dob;
     map['Student_Section'] = studentSection;
     map['Student_Sub_Section'] = studentSubSection;
     map['Address'] = address;
@@ -88,10 +85,10 @@ class Students {
     map['Religion'] = religion;
     map['Guardian_Name'] = guardianName;
     map['Guardian_Relation'] = guardianRelation;
-    map['Guardian_CNIC'] = int.parse(guardianCNIC!);
-    map['Guardian_Mobile'] = int.parse(guardianMobile!);
+    map['Guardian_CNIC'] = guardianCNIC;
+    map['Guardian_Mobile'] = guardianMobile;
     map['Admitted_Class'] = admittedClass;
-    map['Admission_Fee'] = int.parse(admissionFee!);
+    map['Admission_Fee'] = admissionFee;
     map['Admission_Date'] = admissionDate;
     return map;
   }

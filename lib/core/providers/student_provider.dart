@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../models/Students.dart';
+import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class StudentProvider extends ChangeNotifier{
@@ -10,7 +10,7 @@ class StudentProvider extends ChangeNotifier{
 
   }
 
-  List<Students> getAllStudents = [];
+  List<StudentsModels> getAllStudents = [];
   Future<void> getStudents() async {
     getAllStudents.clear();
     DatabaseServices db = DatabaseServices();
@@ -20,7 +20,7 @@ class StudentProvider extends ChangeNotifier{
   }
 
 
-  List<Students> getStudentByClassList = [];
+  List<StudentsModels> getStudentByClassList = [];
   Future<void> getStudentByClassProvider(String cls) async {
     getStudentByClassList.clear();
     DatabaseServices db = DatabaseServices();

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ViewDetailRow extends StatelessWidget {
+  final String sno;
   final String text;
   final String value;
 
   const ViewDetailRow({
     super.key,
+    required this.sno,
     required this.text,
     required this.value,
+
   });
 
   @override
@@ -18,27 +21,43 @@ class ViewDetailRow extends StatelessWidget {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              text,
-              style: TextStyle(
+            Text(sno, style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 1.2 * w,
                 color: Colors.white
+            ),),
+            SizedBox(width: 0.5*w,),
+            SizedBox(
+              width: 11*w,
+              child: Text('$text:', style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 1.2 * w,
+                  color: Colors.white
+              ),),
+            ),
+            SizedBox(width: 01*w,),
+            SizedBox(
+              width: 60*w,
+              child: Column(
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.only(right: 40*w),
+                    child: Text(value, style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 1.2 * w,
+                        color: Colors.white
+                    ),),
+                  ),
+                  SizedBox(height: 0.3*w,),
+                  Divider(height: .2*h,color: Colors.white,),
+                ],
               ),
             ),
-            Text(
-              value,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 1.2 * w,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 0.5*h,),
-        Divider(height: 0.2*h,color: Colors.white,)
+
+          ],),
+        SizedBox(height: 2*h,),
       ],
     );
   }
