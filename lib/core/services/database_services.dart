@@ -90,7 +90,7 @@ class DatabaseServices {
   }
 
 
-  Future<void> deleteStudent(String sid) async {
+  Future<void> deleteStudent(int sid) async {
     String url = "http://localhost/School_Api/delete_data.php";
     String id = "?sid=$sid";
     try{
@@ -104,6 +104,50 @@ class DatabaseServices {
 
   }
 
+  Future<void> deleteStudentAttendance(int sid) async {
+    String url = "http://localhost/School_Api/delete_attendance.php";
+    String id = "?sid=$sid";
+    try{
+      var response = await Dio().get(url + id);
+      print(response.statusCode);
+      print(response.data);
+    }
+    catch(e){
+      print(e);
+    }
+
+  }
+
+  Future<void> deleteStudentResult(int sid) async {
+    String url = "http://localhost/School_Api/delete_result.php";
+    String id = "?sid=$sid";
+    try{
+      var response = await Dio().get(url + id);
+      print(response.statusCode);
+      print(response.data);
+    }
+    catch(e){
+      print(e);
+    }
+
+  }
+
+  Future<void> deleteStudentFee(int sid) async {
+    String url = "http://localhost/School_Api/delete_Fee.php";
+    String id = "?sid=$sid";
+    try{
+      var response = await Dio().get(url + id);
+      print(response.statusCode);
+      print(response.data);
+    }
+    catch(e){
+      print(e);
+    }
+
+  }
+
+
+
 
   Future<void> addStudentAttendance(AttendanceModel atd) async {
     Dio dio = Dio();
@@ -116,7 +160,7 @@ class DatabaseServices {
       // var response =
       // await dio.post('http://localhost/School_Api/insert_student.php',data: jsonEncode(students.toJson()));
       var response = await dio.get(
-        'http://localhost/School_Api/insert_attendance.php?Admission_Number=${atd.admissionNumber}&Admitted_Class=${atd.admittedClass}&Name=${atd.name}&Date=${atd.date}&Type=${atd.type}');
+        'http://localhost/School_Api/insert_attendance.php?Admission_Number=${atd.admissionNumber}&Admitted_Class=${atd.admittedClass}&Name=${atd.name}&Date=${atd.date}&Month=${atd.month}&Type=${atd.type}');
       print("Status Code : ${response.statusCode}");
     } catch (e) {
       print('exception $e');
@@ -149,6 +193,7 @@ class DatabaseServices {
     List<AttendanceModel> atdList = [];
     try {
       var response = await Dio().get(url + param);
+      print(response);
       List<dynamic> jsonList = response.data;
       for (var element in jsonList) {
         atdList.add(AttendanceModel.fromJson(element));
@@ -159,6 +204,76 @@ class DatabaseServices {
 
     return atdList;
   }
+
+
+  Future<List<List<AttendanceModel>>> getAttendanceByMonth(String cls,int month) async {
+    String url = "http://localhost/School_Api/get_attendance_by_month.php";
+    String param = "?Admitted_Class=$cls&Month=$month";
+    List<AttendanceModel> atdList = [];
+    List<List<AttendanceModel>> singleList = [];
+    try {
+      var response = await Dio().get(url + param);
+      List<dynamic> jsonList = response.data;
+
+      // for (var element in jsonList) {
+      //   atdList.add(AttendanceModel.fromJson(element));
+      // }
+
+      List<AttendanceModel> resList =[];
+      print(jsonList.length);
+      for (var element in jsonList)
+      {
+        // print(element.runtimeType);
+        resList.add(AttendanceModel.fromJson(element));
+      }
+
+      for (var element in resList) {
+        bool isInserted = false;
+        print('Something 22222 : ${element
+        .admissionNumber}');
+
+        for(int i =0 ; i< singleList.length ; i++){
+          print('Loop Length $i ');
+
+          for (int j = 0; j< singleList[i].length; j++){
+            print(singleList[i][j].admissionNumber);
+            if(singleList[i][j].admissionNumber== element.admissionNumber){
+              if(!isInserted)
+              {
+                singleList[i].add(element);
+                isInserted=true;
+                print('isInserted : $isInserted Same List : ${element
+                    .admissionNumber}');
+              }
+            }
+          }
+        }
+
+        if(!isInserted){
+          print("*********************************");
+          print('isInserted : $isInserted before if  : ${element
+              .admissionNumber}');
+          singleList.add([element]);
+          print('after if: $isInserted ${element.admissionNumber}');
+          print('***************************');
+        }
+      }
+
+      print("Single list length : ${singleList.length}");
+
+      for (var element in singleList) {
+        print("Single list Inner  length : ${element.length}");
+      }
+    }
+    catch (e) {
+      print('Exception is  $e');
+    }
+    return singleList;
+  }
+
+
+
+
 
 
   Future<void> addStudentDmc(DmcModels mdl) async {
@@ -271,6 +386,8 @@ class DatabaseServices {
 
     return feeList;
   }
+
+
 
 
 }

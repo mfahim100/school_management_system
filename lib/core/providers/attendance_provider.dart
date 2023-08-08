@@ -37,12 +37,13 @@ class AttendanceProvider extends ChangeNotifier {
   }
 
   void insertAttendanceData(
-      int admissionNumber, date, String name, type, admittedClass) {
+      int admissionNumber, date,month, String name, type, admittedClass) {
     AttendanceModel atd = AttendanceModel(
         admissionNumber: admissionNumber,
         admittedClass: admittedClass,
         name: name,
         date: date,
+        month:month,
         type: type);
     DatabaseServices db = DatabaseServices();
     db.addStudentAttendance(atd);
@@ -62,19 +63,27 @@ class AttendanceProvider extends ChangeNotifier {
     int currDate =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
             .millisecondsSinceEpoch;
+    int month =
+        DateTime(DateTime.now().year, DateTime.now().month)
+            .millisecondsSinceEpoch;
     print(admissionNumber);
     print('Name = $name');
     print('type = $type');
     print(currDate.toString());
     print(admittedClass);
-    insertAttendanceData(admissionNumber, currDate, name, type, admittedClass);
+    insertAttendanceData(admissionNumber, currDate,month, name, type, admittedClass);
     notifyListeners();
   }
 
+
+
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+
   bool _isFirst = true;
-
   bool get isFirst => _isFirst;
-
   setIsFirst(bool val) {
     _isFirst = val;
     notifyListeners();
@@ -85,25 +94,18 @@ class AttendanceProvider extends ChangeNotifier {
   List<String> selectedAttendenceDate = [];
 
   List<AttendanceModel> getAttendanceByClassList = [];
-
   Future<void> getAttendanceByClassProvider() async {
     getAttendanceByClassList.clear();
     DatabaseServices db = DatabaseServices();
     getAttendanceByClassList = await db.getAttendanceByClass(_curruntClass);
-
-    // for(int i=0; i<31; i++){
-    //
-    //   getAttendanceByClassList.add(AttendanceModel(id: (i+1),
-    //   admissionNumber: i,
-    //   name: "Ahmad",date: DateTime.now().millisecondsSinceEpoch,type: "P"));
-    // }
     print("___________________________________");
     print(getAttendanceByClassList.length);
     print("___________________________________");
     AddToSelected();
-
     notifyListeners();
   }
+
+
 
   void AddToSelected() {
     selectedAttendence.clear();
@@ -115,9 +117,7 @@ class AttendanceProvider extends ChangeNotifier {
           selectedAttendence.add(mdl);
           DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
           String date = '${doa.day}/${doa.month}';
-
           selectedAttendenceDate.add(date);
-
           notifyListeners();
         }
       }
@@ -128,7 +128,6 @@ class AttendanceProvider extends ChangeNotifier {
           selectedAttendence.add(mdl);
           DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
           String date = '${doa.day}/${doa.month}';
-
           selectedAttendenceDate.add(date);
           notifyListeners();
         }
@@ -137,10 +136,15 @@ class AttendanceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String attendanceString = 'Date of Admission';
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+  String attendanceString = 'Select Attendance Month';
   DateTime attendanceDate = DateTime.now();
   DateTime attendanceDateSelection = DateTime.now();
-
   setAttendanceDate(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
@@ -187,11 +191,8 @@ class AttendanceProvider extends ChangeNotifier {
     );
     notifyListeners();
   }
-
   // int selectedAttendanceDate = selectedAttendanceDate
-
   List<AttendanceModel> getAttendanceByClassAndDateList = [];
-
   Future<void> getAttendanceByClassAndDateProvider() async {
     int selectedAttendanceDate = attendanceDate.millisecondsSinceEpoch;
     getAttendanceByClassAndDateList.clear();
@@ -203,4 +204,113 @@ class AttendanceProvider extends ChangeNotifier {
     print("___________________________________");
     notifyListeners();
   }
+
+
+
+
+  List<AttendanceModel> getAttendanceByMonthList = [];
+  List<List<AttendanceModel>> getAttendanceByMonthListNew = [];
+  Future<void> getAttendanceByMonthProvider() async {
+    int month =   DateTime(DateTime.now().year, DateTime.now().month)
+        .millisecondsSinceEpoch;
+    getAttendanceByMonthListNew.clear();
+    DatabaseServices db = DatabaseServices();
+    getAttendanceByMonthListNew = await db.getAttendanceByMonth(
+        _curruntClass, month);
+    print("___________________________________");
+    print(getAttendanceByMonthListNew.length);
+    print("___________________________________");
+
+    notifyListeners();
+  }
+
+
+
+
+  String _monthSelection = "";
+  String get admittedClass => _monthSelection;
+  setMonth(String val) {
+    _monthSelection = val;
+    print(_monthSelection);
+    notifyListeners();
+  }
+  int decideMonth(){
+
+    if(_monthSelection == 'January'){
+      return DateTime(DateTime.now().year,DateTime.january).millisecondsSinceEpoch;
+    }
+    else if(_monthSelection == 'February'){
+      return DateTime(DateTime.now().year,DateTime.february).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'March'){
+      return DateTime(DateTime.now().year,DateTime.march).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'April'){
+      return DateTime(DateTime.now().year,DateTime.april).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'May'){
+      return DateTime(DateTime.now().year,DateTime.may).millisecondsSinceEpoch;
+    }
+
+
+    else if(_monthSelection == 'June'){
+      return DateTime(DateTime.now().year,DateTime.june).millisecondsSinceEpoch;
+    }
+
+
+    else if(_monthSelection == 'July'){
+      return DateTime(DateTime.now().year,DateTime.july).millisecondsSinceEpoch;
+    }
+
+
+    else if(_monthSelection == 'August'){
+      return DateTime(DateTime.now().year,DateTime.august).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'September'){
+      return DateTime(DateTime.now().year,DateTime.september).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'October'){
+      return DateTime(DateTime.now().year,DateTime.october).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'November'){
+      return DateTime(DateTime.now().year,DateTime.november).millisecondsSinceEpoch;
+    }
+
+    else {
+      return DateTime(DateTime.now().year,DateTime.december).millisecondsSinceEpoch;
+    }
+
+    }
+
+
+
+  List<AttendanceModel> getAttendanceBySelectedMonthList = [];
+  List<List<AttendanceModel>> getAttendanceBySelectedMonthListNew = [];
+  Future<void> getAttendanceBySelectedMonthProvider() async {
+    int month = decideMonth();
+    print(month);
+    getAttendanceBySelectedMonthListNew.clear();
+    DatabaseServices db = DatabaseServices();
+    getAttendanceBySelectedMonthListNew = await db.getAttendanceByMonth(
+        _curruntClass, month);
+    print("___________________________________");
+    print(getAttendanceBySelectedMonthListNew.length);
+    print("___________________________________");
+
+    notifyListeners();
+  }
+
+
+
+
+
+
+
+
 }

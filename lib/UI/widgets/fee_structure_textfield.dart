@@ -12,7 +12,7 @@ class FeeStructureTextField extends StatelessWidget {
  final TextEditingController controller ;
   final String? Function(String?)? validator;
 
-  FeeStructureTextField({
+  const FeeStructureTextField({
     Key? key,
     required this.hintText,
     required this.labelText,

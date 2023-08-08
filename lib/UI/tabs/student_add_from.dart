@@ -6,6 +6,7 @@ import 'package:school_manegment_system/core/providers/student_form_provider.dar
 import '../../../core/constant/constant_decoration.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/student_text_form_field.dart';
+import 'attendance_result.dart';
 
 class StudentAddForm extends StatelessWidget {
   const StudentAddForm({Key? key}) : super(key: key);
@@ -298,6 +299,11 @@ class StudentAddForm extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                      // SizedBox(
+                                      //   width: 25*w,
+                                      //     height: 06*h,
+                                      //   child:  DatePicker(informationDate: studentFormProvider.dobbbb,),
+                                      // ),
 
                                       SizedBox(height: 4*h,),
                                       // StudentTextFormField(

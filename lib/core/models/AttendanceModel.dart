@@ -4,6 +4,7 @@ class AttendanceModel {
   String? admittedClass;
   String? name;
   int? date;
+  int? month;
   String? type;
 
 
@@ -13,6 +14,7 @@ class AttendanceModel {
       this.admittedClass, 
       this.name, 
       this.date, 
+      this.month,
       this.type,});
 
   AttendanceModel.fromJson(dynamic json) {
@@ -21,6 +23,7 @@ class AttendanceModel {
     admittedClass = json['Admitted_Class'];
     name = json['Name'];
     date = int.parse(json['Date']);
+    month = int.parse(json['Month']);
     type = json['Type'];
   }
 
@@ -32,6 +35,7 @@ class AttendanceModel {
     map['Admitted_Class'] = admittedClass;
     map['Name'] = name;
     map['Date'] = date;
+    map['Month'] = month;
     map['Type'] = type;
     return map;
   }

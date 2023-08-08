@@ -36,7 +36,7 @@ class DeleteDialogue extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     DeleteButton(text: 'Delete', onPressed: (){
-                      studentProvider.deleteStudentBySid(sid.toString());
+                      studentProvider.deleteStudentBySid(sid);
                       studentProvider.getStudentByClassProvider(cls);
                       Navigator.of(context).pop();
                     }),

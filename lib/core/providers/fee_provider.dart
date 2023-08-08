@@ -5,8 +5,15 @@ import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class FeeProvider extends ChangeNotifier {
+
   List<TextEditingController> feeControllers = [];
   TextEditingController feeSelection = TextEditingController();
+
+  List<TextEditingController> examFeeControllers = [];
+  TextEditingController examFeeSelection = TextEditingController();
+
+  final TextEditingController _fineFeeController = TextEditingController();
+  TextEditingController get fineFeeController => _fineFeeController;
 
   List<StudentsModels> getStudentByClassList = [];
   Future<void> getStudentByClassProvider(String cls) async {
@@ -17,10 +24,16 @@ class FeeProvider extends ChangeNotifier {
 
     for (var element in getStudentByClassList) {
       feeControllers.add(TextEditingController());
+
     }
 
-    print("getStudentByClassList : ${getStudentByClassList.length}");
-    print("feeControllers : ${feeControllers.length}");
+    for (var element in getStudentByClassList) {
+      examFeeControllers.add(TextEditingController());
+
+    }
+
+
+
     notifyListeners();
   }
 
@@ -41,11 +54,19 @@ class FeeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  setExamFeeToAllStudents() {
+    for (int i=0; i<examFeeControllers.length; i++) {
+      examFeeControllers[i].text=examFeeSelection.text;
+    }
+    notifyListeners();
+  }
+
+
+
   void insertFeeData() {
     int currentMonth = DateTime(DateTime.now().year, DateTime.now().month)
         .millisecondsSinceEpoch;
     for (int i = 0; i< feeControllers.length; i++){
-
       StudentsModels std = getStudentByClassList[i];
       int feeAmount= int.parse(feeControllers[i].text);
 

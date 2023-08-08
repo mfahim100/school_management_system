@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_manegment_system/UI/widgets/all_class_attendance_dialog.dart';
+import 'package:school_manegment_system/UI/widgets/attendance_month_selection_dialog.dart';
 import 'package:school_manegment_system/UI/widgets/attendance_date_selection_dialog.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/attendance_provider.dart';
 
 import '../../core/models/StudentsModels.dart';
-import 'custom_button.dart';
+import '../widgets/attendance_of_current_month.dart';
+import '../widgets/custom_button.dart';
 
 
 class AttendanceSheet extends StatelessWidget {
@@ -115,34 +116,27 @@ class AttendanceSheet extends StatelessWidget {
                   children: [
                     SizedBox(
                         height: 6 * h,
-                        width: 30*w,
+                        width: 15*w,
                         child: StudentDetailButton(
                             text: 'View All Class Attendance',
                             onPressed: () {
-                              attendanceProvider.getAttendanceByClassProvider();
                               showDialog(
                                   barrierDismissible: false,
                                   context: context, builder: (context){
-                                return const AllClassAttendanceDialog();
+                                return const AttendanceMonthSelectionDialog();
                               });
                             }
 
                         )),
                     SizedBox(
                         height: 06 * h,
-                        width: 30*w,
-                        child: StudentDetailButton(
-                            text: 'View By Date And Class',
-                            onPressed: () {
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context, builder: (context){
-                                return const AttendanceDateSelectionDialog();
-
-                              });
-
-                            }
-
+                        width: 15*w,
+                        child: StudentDetailButton(text: 'View Today Attendance', onPressed: (){
+                          showDialog(context: context, builder: (context){
+                            attendanceProvider.getAttendanceByMonthProvider();
+                            return const AttendanceOfCurrentMonth();
+                          });
+                        }
                         )),
                   ],
                 )

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
@@ -28,12 +29,23 @@ class StudentProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> deleteStudentBySid(String sid) async {
+  Future<void> deleteStudentBySid(int sid) async {
     DatabaseServices db = DatabaseServices();
       await db.deleteStudent(sid);
+      await db.deleteStudentAttendance(sid);
+      await db.deleteStudentResult(sid);
+      await db.deleteStudentFee(sid);
     notifyListeners();
   }
 
+
+
+
+ String dobbb='Date Of Birth';
+
+  void checkFunction(){
+    print(dobbb);
+  }
 
 
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_manegment_system/UI/widgets/attendance_by_class_and_date.dart';
+import 'package:school_manegment_system/UI/widgets/attendance_of_current_month.dart';
 import 'package:school_manegment_system/UI/widgets/delete_button.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
@@ -72,8 +72,8 @@ class AttendanceDateSelectionDialog extends StatelessWidget {
                       showDialog(
                           barrierDismissible: false,
                           context: (context), builder: (context){
-                        attendanceProvider.getAttendanceByClassAndDateProvider();
-                        return const AttendanceByClassAndDate();
+                        // attendanceProvider.getAttendanceByClassProvider();
+                        return const AttendanceOfCurrentMonth();
                       });
                       }),
                       DeleteButton(text: 'Cancel', onPressed: (){

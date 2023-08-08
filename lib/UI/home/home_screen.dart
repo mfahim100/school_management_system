@@ -6,7 +6,7 @@ import 'package:school_manegment_system/UI/tabs/exam_result.dart';
 import 'package:school_manegment_system/UI/tabs/fee_structure.dart';
 import 'package:school_manegment_system/UI/tabs/show_all_student.dart';
 import 'package:school_manegment_system/UI/tabs/student_add_from.dart';
-import 'package:school_manegment_system/UI/widgets/attendance_sheet.dart';
+import 'package:school_manegment_system/UI/tabs/attendance_sheet.dart';
 import 'package:school_manegment_system/core/providers/menu_aap_provider.dart';
 import '../../core/constant/constant_decoration.dart';
 import '../../core/constant/constant_text.dart';
@@ -180,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                             menuAapProvider.indexTab==8?
                                 const FeeStructure():
                             menuAapProvider.indexTab==9?
-                                const AttendanceResult():
+                                 const AttendanceResult():
                             menuAapProvider.indexTab==10?
                                 const FeePriceStructure():
                             menuAapProvider.indexTab==11?

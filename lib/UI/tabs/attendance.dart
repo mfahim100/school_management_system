@@ -5,7 +5,7 @@ import 'package:school_manegment_system/core/providers/attendance_provider.dart'
 import 'package:school_manegment_system/core/providers/menu_aap_provider.dart';
 import '../../../core/constant/constant_decoration.dart';
 import '../../core/providers/student_provider.dart';
-import '../widgets/attendance_sheet.dart';
+import 'attendance_sheet.dart';
 import '../widgets/custom_class_list_button.dart';
 
 

@@ -41,12 +41,14 @@ class ViewStudentDetailScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                     SizedBox(
                       height: 25 * h,
-                      width: 78 * w,
+                      width:90*w,
                       child: Image(
-                        width: 78 * w,
-                        image: const AssetImage(''),
+                        // height: 25 * h,
+                        // width:100*w,
+                        image: AssetImage(
+                            ''),
                       ),
                     ),
                     SizedBox(
@@ -97,20 +99,20 @@ class ViewStudentDetailScreen extends StatelessWidget {
                           sno: '11',
                           text: 'Guardian Name',
                           value: mdl.guardianName!,
-                          sno2: '11',
+                          sno2: '12',
                           text2: 'Student Relation',
                           value2: mdl.guardianRelation!,
                         ),
                         ViewDetailDoubleRow(
-                          sno: '12',
+                          sno: '13',
                           text: 'Guardian Cnic',
                           value: mdl.guardianCNIC.toString()!,
-                          sno2: '13',
+                          sno2: '14',
                           text2: 'Guardian Mobile',
                           value2: '0${mdl.guardianMobile!.toString()}',
                         ),
                         ViewDetailRow(
-                            sno: '14',
+                            sno: '15',
                             text: 'Last School',
                             value: mdl.lastSchool!),
                         SizedBox(
@@ -127,15 +129,15 @@ class ViewStudentDetailScreen extends StatelessWidget {
                           height: 7 * h,
                         ),
                         const ViewDetailDoubleRow(
-                          sno: '13',
+                          sno: '16',
                           text: 'Student Sign',
                           value: '',
-                          sno2: '14',
+                          sno2: '17',
                           text2: 'School Sign',
                           value2: '',
                         ),
                         Container(
-                          height: 46  * h,
+                          height: 55  * h,
                           width: 81 * w,
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black)),
@@ -171,7 +173,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 3 * h,
+                                  height: 2 * h,
                                 ),
                                 ViewDetailDoubleRow(
                                   sno: '',
@@ -193,7 +195,18 @@ class ViewStudentDetailScreen extends StatelessWidget {
                                   value2: '',
                                 ),
                                 SizedBox(
-                                  height: 7 * h,
+                                  height: 3.5 * h,
+                                ),
+                                 ViewDetailDoubleRow(
+                                  sno: '',
+                                  text: 'Status',
+                                  value: '',
+                                  sno2: '',
+                                  text2: 'Date',
+                                  value2: dateOfAdmission,
+                                ),
+                                SizedBox(
+                                  height: 5 * h,
                                 ),
                                 const ViewDetailDoubleRow(
                                   sno: '',
@@ -203,6 +216,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                                   text2: 'Principal Stamp',
                                   value2: '',
                                 ),
+
                               ],
                             ),
                           ),
@@ -211,7 +225,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                           height: 3 * h,
                         ),
                         Container(
-                          height: 90 * h,
+                          height: 95 * h,
                           width: 81 * w,
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black)),
@@ -264,7 +278,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                                 UnderTakingRow(
                                     sno: '6', text: ConstantText.lineSix),
                                 SizedBox(
-                                  height: 07 * h,
+                                  height: 05 * h,
                                 ),
                                 const ViewDetailDoubleRow(
                                   sno: '',
@@ -276,7 +290,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                                 ),
 
                                 SizedBox(
-                                  height: 07 * h,
+                                  height: 06 * h,
                                 ),
 
                                 const ViewDetailDoubleRow(

@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:school_manegment_system/core/providers/student_provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class UpdateStudentProvider extends ChangeNotifier {
-
 
 
   var studentFormKey = GlobalKey<FormState>();
@@ -390,7 +391,7 @@ class UpdateStudentProvider extends ChangeNotifier {
       admissionFee: int.parse(admissionFee),
     );
     DatabaseServices db = DatabaseServices();
-    db.updateStudent(std);
+    await db.updateStudent(std);
     print('Every thing gone Find');
     notifyListeners();
 

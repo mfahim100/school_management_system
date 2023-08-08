@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:school_manegment_system/core/services/database_services.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -12,67 +13,51 @@ class StudentFormProvider extends ChangeNotifier {
   TextEditingController get nameController => _nameController;
 
   final TextEditingController _fatherName = TextEditingController();
-
   TextEditingController get fatherName => _fatherName;
 
   final TextEditingController _fatherCNIC = TextEditingController();
-
   TextEditingController get fatherCNIC => _fatherCNIC;
 
   final TextEditingController _fatherMobile = TextEditingController();
-
   TextEditingController get fatherMobile => _fatherMobile;
 
   final TextEditingController _fatherOccupation = TextEditingController();
-
   TextEditingController get fatherOccupation => _fatherOccupation;
 
   final TextEditingController _dOB = TextEditingController();
-
   TextEditingController get dOB => _dOB;
 
   final TextEditingController _studentSection = TextEditingController();
-
   TextEditingController get studentSection => _studentSection;
 
   final TextEditingController _subStudentSection = TextEditingController();
-
   TextEditingController get subStudentSection => _subStudentSection;
 
   final TextEditingController _address = TextEditingController();
-
   TextEditingController get address => _address;
 
   final TextEditingController _lastSchool = TextEditingController();
-
   TextEditingController get lastSchool => _lastSchool;
 
   final TextEditingController _guardianName = TextEditingController();
-
   TextEditingController get guardianName => _guardianName;
 
   final TextEditingController _guardianRelation = TextEditingController();
-
   TextEditingController get guardianRelation => _guardianRelation;
 
   final TextEditingController _guardianCNIC = TextEditingController();
-
   TextEditingController get guardianCNIC => _guardianCNIC;
 
   final TextEditingController _guardianMobile = TextEditingController();
-
   TextEditingController get guardianMobile => _guardianMobile;
 
   final TextEditingController _admissionNumber = TextEditingController();
-
   TextEditingController get admissionNumber => _admissionNumber;
 
   final TextEditingController _admissionFee = TextEditingController();
-
   TextEditingController get admissionFee => _admissionFee;
 
   final TextEditingController _admissionDate = TextEditingController();
-
   TextEditingController get admissionDate => _admissionDate;
 
 //**** Drop Down Menu /////////////////////////////////////////
@@ -327,8 +312,34 @@ class StudentFormProvider extends ChangeNotifier {
 
 
 
+  void clearController(){
 
-  void insertData() {
+    _nameController.clear();
+    _fatherName.clear();
+    _fatherCNIC.clear();
+    _fatherOccupation.clear();
+    _fatherMobile.clear();
+    _dOB.clear();
+    _lastSchool.clear();
+    _studentSection.clear();
+    _subStudentSection.clear();
+    _address.clear();
+    _guardianName.clear();
+    _guardianRelation.clear();
+    _guardianCNIC.clear();
+    _guardianMobile.clear();
+    _admissionNumber.clear();
+    _admissionFee.clear();
+
+
+  }
+
+
+  String dobbbb = 'Date Of Fucking';
+
+
+  Future<void>  insertData() async {
+    EasyLoading.show();
     DateTime adDate=DateTime(2022,12,12);
     String name = _nameController.text.trim();
     String fatherName = _fatherName.text.trim();
@@ -375,8 +386,10 @@ class StudentFormProvider extends ChangeNotifier {
       admissionFee: int.parse(admissionFee),
     );
     DatabaseServices db = DatabaseServices();
-    db.addStudent(std);
+    await db.addStudent(std);
     print('Every thing gone Find');
+    EasyLoading.dismiss();
+    // clearController();
     notifyListeners();
 
   }

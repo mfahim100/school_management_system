@@ -72,12 +72,12 @@ class ShowAllStudent extends StatelessWidget {
                             StudentDetailButton(
                                 text: 'View Details',
                                 onPressed: () {
+                                  studentProvider.getStudentByClassProvider(mdl.admittedClass!);
                                   showDialog(
                                     barrierDismissible: false,
                                       context: context,
                                       builder: (context) {
                                         return ViewStudentDetailScreen(mdl: mdl);
-
                                       });
                                 }),
                             DeleteButton(
