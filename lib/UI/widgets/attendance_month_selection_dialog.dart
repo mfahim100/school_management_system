@@ -37,8 +37,6 @@ class AttendanceMonthSelectionDialog extends StatelessWidget {
                   CustomDropDownMenu(text: 'Please Select Month', items: DropDownMenuConstant.monthList, onChanged:  (txt) =>
                 attendanceProvider.setMonth(txt!),),
 
-                  SizedBox(height: 1.5*h,),
-
                   CustomButton(text: 'Submit', onPressed: (){
                     showDialog(context: context, builder: (context){
                       attendanceProvider.getAttendanceBySelectedMonthProvider();

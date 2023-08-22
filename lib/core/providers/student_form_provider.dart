@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import 'package:school_manegment_system/core/services/database_services.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../models/StudentsModels.dart';
+import 'dashboard_provider.dart';
 
 class StudentFormProvider extends ChangeNotifier {
   var studentFormKey = GlobalKey<FormState>();
@@ -335,7 +337,7 @@ class StudentFormProvider extends ChangeNotifier {
   }
 
 
-  String dobbbb = 'Date Of Fucking';
+  String dobbbb = 'Date Of Birth';
 
 
   Future<void>  insertData() async {
@@ -391,6 +393,7 @@ class StudentFormProvider extends ChangeNotifier {
     EasyLoading.dismiss();
     // clearController();
     notifyListeners();
+
 
   }
 

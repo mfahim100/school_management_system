@@ -367,7 +367,6 @@ class UpdateStudentProvider extends ChangeNotifier {
     String admittedClass = _admittedClass;
     String admissionFee = _admissionFee.text.trim();
     String admissionDate = _admissionDate.text.trim();
-
     StudentsModels std = StudentsModels(
       name: name,
       fatherName: fatherName,
@@ -392,6 +391,9 @@ class UpdateStudentProvider extends ChangeNotifier {
     );
     DatabaseServices db = DatabaseServices();
     await db.updateStudent(std);
+    await db.updateStudentInAttendance(std);
+    await db.updateStudentInResult(std);
+    await db.updateStudentInFee(std);
     print('Every thing gone Find');
     notifyListeners();
 

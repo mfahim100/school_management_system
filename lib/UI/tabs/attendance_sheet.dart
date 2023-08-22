@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/attendance_month_selection_dialog.dart';
-import 'package:school_manegment_system/UI/widgets/attendance_date_selection_dialog.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/attendance_provider.dart';
@@ -118,7 +117,7 @@ class AttendanceSheet extends StatelessWidget {
                         height: 6 * h,
                         width: 15*w,
                         child: StudentDetailButton(
-                            text: 'View All Class Attendance',
+                            text: 'View By Month',
                             onPressed: () {
                               showDialog(
                                   barrierDismissible: false,
@@ -130,7 +129,7 @@ class AttendanceSheet extends StatelessWidget {
                         )),
                     SizedBox(
                         height: 06 * h,
-                        width: 15*w,
+                        width: 17*w,
                         child: StudentDetailButton(text: 'View Today Attendance', onPressed: (){
                           showDialog(context: context, builder: (context){
                             attendanceProvider.getAttendanceByMonthProvider();

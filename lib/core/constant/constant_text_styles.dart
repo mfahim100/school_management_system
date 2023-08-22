@@ -26,6 +26,13 @@ static var customButtonStyle =  GoogleFonts.satisfy(
 );
 
 
+static var admissionFormPrint =  GoogleFonts.archivoBlack(
+    fontSize: 35,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+);
+
+
 
 //
   static var adminPanelNameStyle =  GoogleFonts.satisfy (

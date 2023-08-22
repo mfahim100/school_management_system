@@ -1,22 +1,20 @@
 
 import 'package:dio/dio.dart';
 import 'package:school_manegment_system/core/models/DmcModels.dart';
-import 'package:school_manegment_system/core/models/fee_models.dart';
 
 import '../models/AttendanceModel.dart';
+import '../models/Feemodel.dart';
 import '../models/StudentsModels.dart';
 
 class DatabaseServices {
   /// ********************* ///
-  Future<List<StudentsModels>> getData() async {
+  Future<List<StudentsModels>> getAllStudent() async {
     /// ********************* ///
     List<StudentsModels> stdList = [];
-
     /// ********************* ///
     try {
       var response =
           await Dio().get('http://localhost/School_Api/fetch_all_data.php');
-
       /// Important ////////////////////////////////////////////////////////////////////
       List<dynamic> jsonList = response.data;
       for (var element in jsonList) {
@@ -32,6 +30,103 @@ class DatabaseServices {
     return stdList;
 
     /// ********************* ///
+  }
+  
+  
+  Future<List<StudentsModels>> getMaleStudents() async {
+    List<StudentsModels> maleStudents = [];
+   try{
+     var response = await Dio().get('http://localhost/School_Api/get_male_student.php');
+     List<dynamic> jsonList = response.data;
+     for(var element in jsonList){
+       maleStudents.add(StudentsModels.fromJson(element));
+     }
+   }
+
+   catch(e){
+
+     print('exception is $e');
+   }
+
+    return maleStudents;
+
+  }
+
+  Future<List<StudentsModels>> getFemaleStudents() async {
+    List<StudentsModels> maleStudents = [];
+   try{
+     var response = await Dio().get('http://localhost/School_Api/get_female_student.php');
+     List<dynamic> jsonList = response.data;
+     for(var element in jsonList){
+       maleStudents.add(StudentsModels.fromJson(element));
+     }
+   }
+
+   catch(e){
+
+     print('exception is $e');
+   }
+
+    return maleStudents;
+
+  }
+
+  Future<List<AttendanceModel>> getPresentStudents(int date) async {
+    List<AttendanceModel> presentStudents = [];
+   try{
+     var response = await Dio().get('http://localhost/School_Api/get_present_student.php?Date=$date');
+     List<dynamic> jsonList = response.data;
+     for(var element in jsonList){
+       presentStudents.add(AttendanceModel.fromJson(element));
+     }
+   }
+
+   catch(e){
+
+     print('exception is $e');
+   }
+
+    return presentStudents;
+
+  }
+
+
+  Future<List<AttendanceModel>> getAbsentStudent(int date) async {
+    List<AttendanceModel> absentStudents = [];
+   try{
+     var response = await Dio().get('http://localhost/School_Api/get_absent_students.php?Date=$date');
+     List<dynamic> jsonList = response.data;
+     for(var element in jsonList){
+       absentStudents.add(AttendanceModel.fromJson(element));
+     }
+   }
+
+   catch(e){
+
+     print('exception is $e');
+   }
+
+    return absentStudents;
+
+  }
+
+  Future<List<AttendanceModel>> getLeaveStudent(int date) async {
+    List<AttendanceModel> leaveStudent = [];
+   try{
+     var response = await Dio().get('http://localhost/School_Api/get_leave_students%20.php?Date=$date');
+     List<dynamic> jsonList = response.data;
+     for(var element in jsonList){
+       leaveStudent.add(AttendanceModel.fromJson(element));
+     }
+   }
+
+   catch(e){
+
+     print('exception is $e');
+   }
+
+    return leaveStudent;
+
   }
 
   ////// 10th Students/////////////
@@ -89,6 +184,65 @@ class DatabaseServices {
     }
   }
 
+  Future<void> updateStudentInAttendance(StudentsModels student) async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.followRedirects = true;
+    dio.options.validateStatus;
+    try {
+      print(StudentsModels().toJson());
+      // var response =
+      // await dio.post('http://localhost/School_Api/insert_student.php',data: jsonEncode(students.toJson()));
+      var response = await dio.get(
+          'http://localhost/School_Api/update_attendance_data.php?Name=${student.name}&Admitted_Class=${student.admittedClass}&Admission_Number=${student.admissionNumber}');
+      print("Status Code : ${response.statusCode}");
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+
+  Future<void> updateStudentInResult(StudentsModels student) async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.followRedirects = true;
+    dio.options.validateStatus;
+    try {
+      print(StudentsModels().toJson());
+      // var response =
+      // await dio.post('http://localhost/School_Api/insert_student.php',data: jsonEncode(students.toJson()));
+      var response = await dio.get(
+        'http://localhost/School_Api/update_result_data.php?Name=${student.name}&Father_Name=${student.fatherName}&Admitted_Class=${student.admittedClass}&Admission_Number=${student.admissionNumber}'
+      );
+      print("Status Code : ${response.statusCode}");
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+  Future<void> updateStudentInFee(StudentsModels student) async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.followRedirects = true;
+    dio.options.validateStatus;
+    try {
+      print(StudentsModels().toJson());
+      // var response =
+      // await dio.post('http://localhost/School_Api/insert_student.php',data: jsonEncode(students.toJson()));
+      var response = await dio.get(
+                'http://localhost/School_Api/update_fee_data.php?Name=${student.name}&Father_Name=${student.fatherName}&Admitted_Class=${student.admittedClass}&Admission_Number=${student.admissionNumber}'
+      );
+      print("Status Code : ${response.statusCode}");
+    } catch (e) {
+      print('exception $e');
+    }
+  }
+
+
+  ////////////////////////////////////////]]]]]]]]]]]]]]]]]]
 
   Future<void> deleteStudent(int sid) async {
     String url = "http://localhost/School_Api/delete_data.php";
@@ -168,42 +322,8 @@ class DatabaseServices {
   }
 
 
-  Future<List<AttendanceModel>> getAttendanceByClass(String cls) async {
-    String url = "http://localhost/School_Api/get_attendance_by_class.php";
-    String param = "?Admitted_Class=$cls";
-    List<AttendanceModel> atdList = [];
-    try {
-      var response = await Dio().get(url + param);
-      List<dynamic> jsonList = response.data;
-      for (var element in jsonList) {
-        atdList.add(AttendanceModel.fromJson(element));
-      }
-    } catch (e) {
-      print('Exception is  $e');
-    }
-
-    return atdList;
-  }
 
 
-  Future<List<AttendanceModel>> getAttendanceByClassAndDate(String cls,int date) async {
-    // String url = "http://localhost/School_Api/get_attendance_by_class.php";
-    String url = "http://localhost/School_Api/get_attendance_by_class_and_date.php";
-    String param = "?Admitted_Class=$cls&Date=$date";
-    List<AttendanceModel> atdList = [];
-    try {
-      var response = await Dio().get(url + param);
-      print(response);
-      List<dynamic> jsonList = response.data;
-      for (var element in jsonList) {
-        atdList.add(AttendanceModel.fromJson(element));
-      }
-    } catch (e) {
-      print('Exception is  $e');
-    }
-
-    return atdList;
-  }
 
 
   Future<List<List<AttendanceModel>>> getAttendanceByMonth(String cls,int month) async {
@@ -342,17 +462,19 @@ class DatabaseServices {
     try {
       print(FeeModels().toJson());
       var response = await dio.get(
-          'http://localhost/School_Api/insert_student_fee.php?Admission_Number=${mdl.admissionNumber}&Name=${mdl.name}&Father_Name=${mdl.fatherName}&Admitted_Class=${mdl.admittedClass}&Month=${mdl.month}&Total_Fee=${mdl.totalFee}&Status=${mdl.status}');
+          'http://localhost/School_Api/insert_Student_fee_data.php?Admission_Number=${mdl.admissionNumber}&Name=${mdl.name}&Father_Name=${mdl.fatherName}&Admitted_Class=${mdl.admittedClass}&Month=${mdl.month}&Monthly_Fee=${mdl.monthlyFee}&Exam_Fee=${mdl.examFee}&Fine_Fee=${mdl.fineFee}&Total_Fee=${mdl.totalFee}&Monthly_Fee_Status=${mdl.monthlyFeeStatus}&Exam_Fee_Status=${mdl.examFeeStatus}&Fine_Fee_Status=${mdl.fineFeeStatus}');
       print("Status Code : ${response.statusCode}");
+
+
     } catch (e) {
       print('exception $e');
     }
   }
 
 
-  Future<List<FeeModels>> getFeeByClass(String cls,int month) async {
-    String url = "http://localhost/School_Api/get_fee_by_class_and_date.php";
-    String param = "?Admitted_Class=$cls&Month=$month";
+  Future<List<FeeModels>> getFeeByAdmissionNumber(int admissionNumber) async {
+    String url = "http://localhost/School_Api/get_fee_by_admisssion_number.php?";
+    String param = "Admission_Number=$admissionNumber";
     List<FeeModels> feeList = [];
     try {
       var response = await Dio().get(url + param);
@@ -369,13 +491,14 @@ class DatabaseServices {
   }
 
 
-  Future<List<FeeModels>> getFeeByName(String name,cls) async {
-    String url = "http://localhost/School_Api/get_fee_by_name.php";
-    String param = "?Name=$name&Admitted_Class=$cls";
+  Future<List<FeeModels>> getFeeByClass(String admittedClass) async {
+    String url = "http://localhost/School_Api/get_fee_by_class.php";
+    String param = "?Admitted_Class=$admittedClass";
     List<FeeModels> feeList = [];
     try {
       var response = await Dio().get(url + param);
       print(response.data);
+      print('Somethingh Fucking');
       List<dynamic> jsonList = response.data;
       for (var element in jsonList) {
         feeList.add(FeeModels.fromJson(element));
@@ -388,6 +511,42 @@ class DatabaseServices {
   }
 
 
+
+
+  Future<void> updateMonthLyFeeStatus(int admissionNumber,month) async {
+    String url = "http://localhost/School_Api/update_fee_status.php";
+    String id = "?Admission_Number=$admissionNumber&Month=$month";
+    try{
+      var response = await Dio().get(url + id);
+      print(response.statusCode);
+      print(response.data);
+    }
+    catch(e){
+      print(e);
+    }
+
+  }
+
+
+  Future<List<FeeModels>> getUnpaidFee(int admissionNumber) async {
+    String url = "http://localhost/School_Api/get_unpaid_fee.php";
+    String param = "?Admission_Number=$admissionNumber";
+    List<FeeModels> unPaidFeeList = [];
+    try {
+      var response = await Dio().get(url + param);
+      print(response.data);
+      List<dynamic> jsonList = response.data;
+      for (var element in jsonList) {
+        unPaidFeeList.add(FeeModels.fromJson(element));
+      }
+
+    } catch (e) {
+      print('Exception is  $e');
+    }
+
+    return unPaidFeeList;
+
+  }
 
 
 }

@@ -7,12 +7,14 @@ class CustomButton extends StatelessWidget {
   final bool isSmall;
   final String text;
   final Function() onPressed;
+  final bool isSelected;
 
   const CustomButton({
     Key? key,
     required this.text,
     required this.onPressed,
     this.isSmall=false,
+    this.isSelected=false
   }) : super(key: key);
 
   @override
@@ -26,7 +28,8 @@ class CustomButton extends StatelessWidget {
         width: 25*w,
         height: 08*h,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(25)),
+            color:  isSelected ? Colors.green : Colors.white,
+            borderRadius: BorderRadius.circular(25)),
         child: Center(
             child: Text(
           text,

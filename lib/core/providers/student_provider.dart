@@ -8,14 +8,13 @@ class StudentProvider extends ChangeNotifier{
   StudentProvider(){
     getStudents();
     // getStudentByClassProvider(cls);
-
   }
 
   List<StudentsModels> getAllStudents = [];
   Future<void> getStudents() async {
     getAllStudents.clear();
     DatabaseServices db = DatabaseServices();
-    getAllStudents = await db.getData();
+    getAllStudents = await db.getAllStudent();
   notifyListeners();
 
   }

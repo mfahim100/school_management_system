@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_text.dart';
 import 'package:school_manegment_system/core/models/DmcModels.dart';
+import 'package:school_manegment_system/core/providers/printing_provider.dart';
 import 'package:school_manegment_system/core/providers/result_provider.dart';
 
 import '../../core/constant/constant_decoration.dart';
 import 'delete_button.dart';
 import 'dmc_marks_row.dart';
 import 'dmc_text_widget.dart';
+
 
 class ShowResultOfStudentOfHighClass extends StatelessWidget {
 
@@ -147,8 +149,12 @@ class ShowResultOfStudentOfHighClass extends StatelessWidget {
                     SizedBox(
                       height: 5 * h,
                       width: 15 * w,
-                      child: StudentDetailButton(
-                          text: 'Print Data', onPressed: () {}),
+                      child: Consumer<PrintingProvider>(builder: ( context, printingProvider,  child) {
+
+                        return StudentDetailButton(text: 'Print', onPressed: (){
+                          printingProvider.printDmcHighClasses(resultProvider);
+                        });
+                      },),
                     ),
                     SizedBox(
                       height: 5 * h,

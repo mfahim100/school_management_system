@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class FeeHistoryRow extends StatelessWidget {
   final String monthName, monthlyFee, status;
+  final Function() onPressed;
 
   const FeeHistoryRow({
     super.key,
     required this.monthName,
     required this.monthlyFee,
     required this.status,
+    required this.onPressed,
   });
 
   @override
@@ -15,14 +17,9 @@ class FeeHistoryRow extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double h = size.height / 100;
     double w = size.width / 100;
-    return Container(
+    return SizedBox(
       height: 4.5 * h,
       width: 45 * w,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black
-        )
-      ),
       child: Column(
         children: [
           Row(
@@ -54,13 +51,16 @@ class FeeHistoryRow extends StatelessWidget {
                       Colors.red,
                     ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
                   ),
-                  child: Center(
-                    child: Text(
-                      status,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 1.2 * w,
+                  child: InkWell(
+                    onTap: onPressed,
+                    child: Center(
+                      child: Text(
+                        status,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 1.2 * w,
+                        ),
                       ),
                     ),
                   ),

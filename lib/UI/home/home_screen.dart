@@ -162,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 3*h,),
                             menuAapProvider.indexTab==0?
-                            const Dashboard()
+                             const Dashboard()
                                 :menuAapProvider.indexTab==1?
                             const ClassesWithStudents()
                                 :menuAapProvider.indexTab==2?
@@ -185,7 +185,7 @@ class HomeScreen extends StatelessWidget {
                                 const FeePriceStructure():
                             menuAapProvider.indexTab==11?
                                 const ResultClass():
-                            const  Dashboard()
+                              Dashboard()
 
                           ],
                         ),

@@ -297,7 +297,7 @@ class ResultProvider extends ChangeNotifier{
 
     }
     DmcModels mdl = DmcModels(
-      id: 0,
+         id: 0,
         admissionNumber: admissionNumber,
         name: name,
         fatherName: fatherName,

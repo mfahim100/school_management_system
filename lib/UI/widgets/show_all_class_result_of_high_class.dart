@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
-
+import 'package:school_manegment_system/core/providers/printing_provider.dart';
 import '../../core/constant/constant_decoration.dart';
 import '../../core/constant/constant_text.dart';
 import '../../core/models/DmcModels.dart';
@@ -10,6 +9,7 @@ import '../../core/providers/result_provider.dart';
 import 'delete_button.dart';
 import 'dmc_marks_row.dart';
 import 'dmc_text_widget.dart';
+
 
 class ShowAllClassResult extends StatelessWidget {
 
@@ -324,8 +324,12 @@ class ShowAllClassResult extends StatelessWidget {
                     SizedBox(
                       height: 5 * h,
                       width: 15 * w,
-                      child: StudentDetailButton(
-                          text: 'Print Data', onPressed: () {}),
+                      child: Consumer<PrintingProvider>(builder: ( context,printingProvider,child) {
+                        return StudentDetailButton(text: 'Print', onPressed: (){
+                          printingProvider.printDmcOfAllClasses(resultProvider);
+                        });
+
+                      },),
                     ),
                     SizedBox(
                       height: 5 * h,

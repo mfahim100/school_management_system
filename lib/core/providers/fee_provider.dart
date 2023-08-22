@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:school_manegment_system/core/models/fee_models.dart';
 
+import '../models/Feemodel.dart';
 import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
@@ -27,12 +27,11 @@ class FeeProvider extends ChangeNotifier {
 
     }
 
+
     for (var element in getStudentByClassList) {
       examFeeControllers.add(TextEditingController());
 
     }
-
-
 
     notifyListeners();
   }
@@ -62,76 +61,162 @@ class FeeProvider extends ChangeNotifier {
   }
 
 
+  String _monthSelection = "";
+  String get admittedClass => _monthSelection;
+  setMonth(String val) {
+    _monthSelection = val;
+    print(_monthSelection);
+    notifyListeners();
+  }
+
+  int? decideMonth(){
+
+    if(_monthSelection == 'January'){
+      return DateTime(DateTime.now().year,DateTime.january,DateTime.now().day).millisecondsSinceEpoch;
+    }
+    else if(_monthSelection == 'February'){
+      return DateTime(DateTime.now().year,DateTime.february,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'March'){
+      return DateTime(DateTime.now().year,DateTime.march,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'April'){
+      return DateTime(DateTime.now().year,DateTime.april,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'May'){
+      return DateTime(DateTime.now().year,DateTime.may,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+
+    else if(_monthSelection == 'June'){
+      return DateTime(DateTime.now().year,DateTime.june,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+
+    else if(_monthSelection == 'July'){
+      return DateTime(DateTime.now().year,DateTime.july,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+
+    else if(_monthSelection == 'August'){
+      return DateTime(DateTime.now().year,DateTime.august,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'September'){
+      return DateTime(DateTime.now().year,DateTime.september,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'October'){
+      return DateTime(DateTime.now().year,DateTime.october,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else if(_monthSelection == 'November'){
+      return DateTime(DateTime.now().year,DateTime.november,DateTime.now().day).millisecondsSinceEpoch;
+    }
+    else if(_monthSelection == 'December'){
+      return DateTime(DateTime.now().year,DateTime.december,DateTime.now().day).millisecondsSinceEpoch;
+    }
+
+    else {
+      return null;
+    }
+  }
+
+
+  int _totalFee = 0;
+  int  get totalFee => _totalFee;
+  List<FeeModels> getUnpaidFeeList = [];
+  Future<void> getUnpaidFeeProvider(int admissionNumber) async {
+    getUnpaidFeeList.clear();
+    _totalFee=0;
+    DatabaseServices db = DatabaseServices();
+    getUnpaidFeeList = await db.getUnpaidFee(admissionNumber);
+    for (int i = 0; i < getUnpaidFeeList.length; i++) {
+      _totalFee = _totalFee + getUnpaidFeeList[i].monthlyFee!;
+      print(_totalFee);
+    }
+
+    print('total fee is ${_totalFee.toString()}');
+  }
+
+
 
   void insertFeeData() {
-    int currentMonth = DateTime(DateTime.now().year, DateTime.now().month)
-        .millisecondsSinceEpoch;
-    for (int i = 0; i< feeControllers.length; i++){
+    int? month = decideMonth();
+    for (int i = 0; i<feeControllers.length; i++){
       StudentsModels std = getStudentByClassList[i];
-      int feeAmount= int.parse(feeControllers[i].text);
-
+      int monthlyFee= int.parse(feeControllers[i].text);
       FeeModels mdl = FeeModels(
+        id: 0,
         admissionNumber: std.admissionNumber,
         name: std.name,
         fatherName: std.fatherName,
         admittedClass: std.admittedClass,
-        totalFee: feeAmount,
-        month: currentMonth,
-        status: 0,
+        month: month,
+        monthlyFee: monthlyFee,
+        examFee: 0,
+        fineFee: 0,
+        totalFee: monthlyFee+0+_totalFee,
+        monthlyFeeStatus: 0,
+        examFeeStatus: 0,
+        fineFeeStatus: 0
       );
+      print('lenggth $i');
       DatabaseServices db = DatabaseServices();
       db.addStudentFee(mdl);
-      print('Every thing gone Find');
+     print('this is number $i');
     }
 
     notifyListeners();
   }
 
+
+  List<FeeModels> getFeeByAdmissionNumberList = [];
+  Future<void> getFeeByAdmissionNumberProvider(int admissionNumber) async {
+    getFeeByAdmissionNumberList.clear();
+    DatabaseServices db = DatabaseServices();
+    getFeeByAdmissionNumberList = await db.getFeeByAdmissionNumber(admissionNumber);
+    print("___________________________________");
+    print(getFeeByAdmissionNumberList.length);
+    print("___________________________________");
+    notifyListeners();
+
+  }
 
   List<FeeModels> getFeeByClass = [];
-  Future<void> getFeeByClassProvider() async {
-    int currentMonth = DateTime(DateTime.now().year,DateTime.now().month).millisecondsSinceEpoch;
+  Future<void> getFeeByClassProvider()async {
     getFeeByClass.clear();
     DatabaseServices db = DatabaseServices();
-    getFeeByClass = await db.getFeeByClass(_curruntClass,currentMonth);
+     getFeeByClass =  await db.getFeeByClass(_curruntClass);
     print("___________________________________");
-    print(currentMonth);
-    print(_curruntClass);
-    print(getFeeByClass.length);
+    print(getFeeByAdmissionNumberList.length);
     print("___________________________________");
-    notifyListeners();
+     notifyListeners();
+
 
   }
 
 
 
-  final _searchStudentController = TextEditingController();
-  TextEditingController get searchStudentController => _searchStudentController;
 
-  String? searchStudentValidator(String? txt) {
-
-    if(txt!.isEmpty){
-      return 'Please Enter Student Name';
-    }
-
-    return null;
-
-  }
-
-
-  List<FeeModels> getFeeByName = [];
-  Future<void> getFeeByNameProvider(String name) async {
-    getFeeByClass.clear();
+  Future<void> updateMonthLyFeeProvider(int admissionNumber, month) async {
     DatabaseServices db = DatabaseServices();
-    getFeeByClass = await db.getFeeByName(name,_curruntClass);
-    print("___________________________________");
-    print(name);
-    print(_curruntClass);
-    print(getFeeByClass.length);
-    print("___________________________________");
+    db.updateMonthLyFeeStatus(admissionNumber, month);
     notifyListeners();
-
   }
+
+
+
+
+
+
+
+
+
+
 
 
 

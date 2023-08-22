@@ -4,6 +4,7 @@ class ConstantText {
 
   static var schoolName = 'FAROOQIA Education & Modern Science School System';
   static var schoolNameForDmc = 'FAROOQIA Education';
+  static var dmcAddress = 'Zarakhela Shamozai Swat';
 
 
   late String name, fatherName, examType, admittedClass;

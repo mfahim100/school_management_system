@@ -6,6 +6,7 @@ import 'package:school_manegment_system/UI/widgets/undertaking_row.dart';
 import 'package:school_manegment_system/UI/widgets/update_form.dart';
 import 'package:school_manegment_system/UI/widgets/view_detail_double_row.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
+import 'package:school_manegment_system/core/providers/printing_provider.dart';
 import 'package:school_manegment_system/core/providers/update_student_provider.dart';
 
 import '../../core/constant/constant_text.dart';
@@ -13,16 +14,18 @@ import '../../core/models/StudentsModels.dart';
 import '../../core/providers/student_provider.dart';
 import '../widgets/view_detail_row.dart';
 
+
+
+
 class ViewStudentDetailScreen extends StatelessWidget {
   StudentsModels mdl = StudentsModels();
 
-  ViewStudentDetailScreen({super.key, required this.mdl});
+   ViewStudentDetailScreen({super.key, required this.mdl});
 
   @override
   Widget build(BuildContext context) {
     DateTime dob = DateTime.fromMillisecondsSinceEpoch(mdl.dob!);
     String dateOfBirth = "${dob.year}-${dob.month}-${dob.day}";
-
     DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.admissionDate!);
     String dateOfAdmission = "${doa.year}-${doa.month}-${doa.day}";
 
@@ -106,7 +109,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                         ViewDetailDoubleRow(
                           sno: '13',
                           text: 'Guardian Cnic',
-                          value: mdl.guardianCNIC.toString()!,
+                          value: mdl.guardianCNIC!.toString(),
                           sno2: '14',
                           text2: 'Guardian Mobile',
                           value2: '0${mdl.guardianMobile!.toString()}',
@@ -189,7 +192,7 @@ class ViewStudentDetailScreen extends StatelessWidget {
                                 ViewDetailDoubleRow(
                                   sno: '',
                                   text: 'Admission Fee',
-                                  value: mdl.admissionFee.toString()!,
+                                  value: mdl.admissionFee!.toString(),
                                   sno2: '',
                                   text2: 'Cashier Sign',
                                   value2: '',
@@ -314,8 +317,15 @@ class ViewStudentDetailScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            StudentDetailButton(
-                                text: "Print", onPressed: () {}),
+                            Consumer<PrintingProvider>(
+                              builder: ( context, printingProvider,child) {
+                                return StudentDetailButton(
+                                    text: "Print", onPressed: () {
+                                      printingProvider.printAdmissionForm(mdl);
+                                });
+                              },
+                            ),
+
                             StudentDetailButton(
                                 text: "Update",
                                 onPressed: () {

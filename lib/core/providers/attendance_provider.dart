@@ -1,21 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../models/AttendanceModel.dart';
 import '../models/StudentsModels.dart';
 import '../services/database_services.dart';
 
 class AttendanceProvider extends ChangeNotifier {
-  var attendanceSheetFormKey = GlobalKey<FormState>();
-  final _attendanceTypeController = TextEditingController();
-
-  TextEditingController get attendanceTypeController =>
-      _attendanceTypeController;
 
   String _curruntClass = '';
-
   String get curruntClass => _curruntClass;
-
   setCurruntClass(String cls) {
     _curruntClass = cls;
     notifyListeners();
@@ -23,7 +15,6 @@ class AttendanceProvider extends ChangeNotifier {
 
   List<int> stdAttendance = [];
   List<StudentsModels> getStudentByClassList = [];
-
   Future<void> getStudentByClassProvider(String cls) async {
     setCurruntClass(cls);
     stdAttendance.clear();
@@ -72,136 +63,6 @@ class AttendanceProvider extends ChangeNotifier {
     print(currDate.toString());
     print(admittedClass);
     insertAttendanceData(admissionNumber, currDate,month, name, type, admittedClass);
-    notifyListeners();
-  }
-
-
-
-
-
-
-  ////////////////////////////////////////////////////////////////////////////////
-
-  bool _isFirst = true;
-  bool get isFirst => _isFirst;
-  setIsFirst(bool val) {
-    _isFirst = val;
-    notifyListeners();
-    AddToSelected();
-  }
-
-  List<AttendanceModel> selectedAttendence = [];
-  List<String> selectedAttendenceDate = [];
-
-  List<AttendanceModel> getAttendanceByClassList = [];
-  Future<void> getAttendanceByClassProvider() async {
-    getAttendanceByClassList.clear();
-    DatabaseServices db = DatabaseServices();
-    getAttendanceByClassList = await db.getAttendanceByClass(_curruntClass);
-    print("___________________________________");
-    print(getAttendanceByClassList.length);
-    print("___________________________________");
-    AddToSelected();
-    notifyListeners();
-  }
-
-
-
-  void AddToSelected() {
-    selectedAttendence.clear();
-    selectedAttendenceDate.clear();
-    if (_isFirst) {
-      for (int i = 0; i < 15; i++) {
-        if (getAttendanceByClassList.length > i) {
-          AttendanceModel mdl = getAttendanceByClassList[i];
-          selectedAttendence.add(mdl);
-          DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
-          String date = '${doa.day}/${doa.month}';
-          selectedAttendenceDate.add(date);
-          notifyListeners();
-        }
-      }
-    } else {
-      for (int i = 15; i <= 32; i++) {
-        if (getAttendanceByClassList.length > i) {
-          AttendanceModel mdl = getAttendanceByClassList[i];
-          selectedAttendence.add(mdl);
-          DateTime doa = DateTime.fromMillisecondsSinceEpoch(mdl.date!);
-          String date = '${doa.day}/${doa.month}';
-          selectedAttendenceDate.add(date);
-          notifyListeners();
-        }
-      }
-    }
-    notifyListeners();
-  }
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-  String attendanceString = 'Select Attendance Month';
-  DateTime attendanceDate = DateTime.now();
-  DateTime attendanceDateSelection = DateTime.now();
-  setAttendanceDate(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double h = size.height / 100;
-    double w = size.width / 100;
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: SizedBox(
-            width: 40 * w,
-            height: 50 * h,
-            child: Padding(
-              padding: EdgeInsets.all(2 * w),
-              child: SfDateRangePicker(
-                minDate: DateTime(1900),
-                view: DateRangePickerView.decade,
-                onCancel: () {
-                  Navigator.of(context).pop();
-                },
-                onSubmit: (picker) {
-                  print(picker.toString());
-                  attendanceDate = attendanceDateSelection;
-                  attendanceString =
-                      "${attendanceDate.year}-${attendanceDate.month}-${attendanceDate.day}";
-                  notifyListeners();
-                  Navigator.of(context).pop();
-                },
-                confirmText: 'OK',
-                showActionButtons: true,
-                onSelectionChanged: (args) {
-                  if (args.value is PickerDateRange) {
-                    attendanceDateSelection = args.value.startDate;
-                  } else if (args.value is DateTime) {
-                    attendanceDateSelection = args.value;
-                  }
-                },
-                selectionMode: DateRangePickerSelectionMode.single,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-    notifyListeners();
-  }
-  // int selectedAttendanceDate = selectedAttendanceDate
-  List<AttendanceModel> getAttendanceByClassAndDateList = [];
-  Future<void> getAttendanceByClassAndDateProvider() async {
-    int selectedAttendanceDate = attendanceDate.millisecondsSinceEpoch;
-    getAttendanceByClassAndDateList.clear();
-    DatabaseServices db = DatabaseServices();
-    getAttendanceByClassAndDateList = await db.getAttendanceByClassAndDate(
-        _curruntClass, selectedAttendanceDate);
-    print("___________________________________");
-    print(getAttendanceByClassAndDateList.length);
-    print("___________________________________");
     notifyListeners();
   }
 

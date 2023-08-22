@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
+import 'package:school_manegment_system/core/providers/printing_provider.dart';
 
 import '../../core/constant/constant_decoration.dart';
 import '../../core/constant/constant_text.dart';
@@ -9,6 +10,9 @@ import '../../core/providers/result_provider.dart';
 import 'delete_button.dart';
 import 'dmc_marks_row.dart';
 import 'dmc_text_widget.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 class ShowResultOfPrimaryAndMiddleClasses extends StatelessWidget {
   const ShowResultOfPrimaryAndMiddleClasses({super.key});
@@ -145,8 +149,12 @@ class ShowResultOfPrimaryAndMiddleClasses extends StatelessWidget {
                     SizedBox(
                       height: 5 * h,
                       width: 15 * w,
-                      child: StudentDetailButton(
-                          text: 'Print Data', onPressed: () {}),
+                      child: Consumer<PrintingProvider>(builder: (context, printingProvider,child) {
+                        return StudentDetailButton(text: 'Print Data', onPressed: (){
+                          printingProvider.printDmcPrimaryAndMiddleClasses(resultProvider);
+                        });
+
+                      },)
                     ),
                     SizedBox(
                       height: 5 * h,
@@ -165,3 +173,6 @@ class ShowResultOfPrimaryAndMiddleClasses extends StatelessWidget {
     );
   }
   }
+
+
+

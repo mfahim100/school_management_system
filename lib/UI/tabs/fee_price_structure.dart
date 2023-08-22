@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/custom_button.dart';
 import 'package:school_manegment_system/UI/widgets/fee_structure_textfield.dart';
+import 'package:school_manegment_system/UI/widgets/show_all_class_fee_dialog.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/UI/widgets/student_fee_record_dialog.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/providers/fee_provider.dart';
 
+import '../../core/constant/drop_down_menu_constant.dart';
 import '../../core/models/StudentsModels.dart';
+import '../widgets/drop_down_menu.dart';
 
 class FeePriceStructure extends StatelessWidget {
 
@@ -34,38 +37,34 @@ class FeePriceStructure extends StatelessWidget {
                     height: 6 * h,
                     width: 60 * w,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+
                         SizedBox(
-                            width: 10 * w,
+                          width: 18 * w,
+                          child:  CustomDropDownMenu(text: 'Select Month', items: DropDownMenuConstant.monthList, onChanged:  (txt) =>
+                              feeProvider.setMonth(txt!),),),
+
+                        SizedBox(
+                            width: 18 * w,
                             child: FeeStructureTextField(
                               hintText: 'Monthly Fee',
                               labelText: 'Monthly Fee',
                               controller: feeProvider.feeSelection,
                             )),
                         SizedBox(
-                            width: 15 * w,
+                            width: 18 * w,
                             child: StudentDetailButton(
-                                text: 'Confirm Monthly',
+                                text: 'Submit to all Class',
                                 onPressed: () =>
                                     feeProvider.setFeeToAllStudents(),
                             )),
 
-                        SizedBox(
-                            width: 10 * w,
-                            child: FeeStructureTextField(
-                              hintText: 'Exam Fee',
-                              labelText: 'Exam Fee',
-                              controller: feeProvider.examFeeSelection,
-                            )),
-                        SizedBox(
-                            width: 15 * w,
-                            child: StudentDetailButton(
-                                text: 'Confirm Exam',
-                                onPressed: (){
-                                  feeProvider.setExamFeeToAllStudents();
-                                }
-                            )),
+
+
+
+
+
                       ],
                     ),
                   ),
@@ -117,33 +116,15 @@ class FeePriceStructure extends StatelessWidget {
                                         feeProvider.feeControllers[index],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 07 * h,
-                                  width: 08 * w,
-                                  child: FeeStructureTextField(
-                                    hintText: 'Exam Fee',
-                                    labelText: 'Exam Fee',
-                                    controller:feeProvider.examFeeControllers[index]
-                                        // feeProvider.examFeeControllers[index],/
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 07 * h,
-                                  width: 08 * w,
-                                  child: FeeStructureTextField(
-                                    hintText: 'Fine',
-                                    labelText: 'Fine',
-                                    controller:
-                                        feeProvider.fineFeeController
-                                  ),
-                                ),
+
                                 SizedBox(
                                   height: 05 * h,
                                   width: 09 * w,
                                   child: StudentDetailButton(text: 'View Data', onPressed: () {
-                                    feeProvider.getFeeByNameProvider(mdl.name!);
+                                    feeProvider.getFeeByAdmissionNumberProvider(mdl.admissionNumber!);
+                                    feeProvider.getUnpaidFeeProvider(mdl.admissionNumber!);
                                     showDialog(context: context, builder: (context){
-                                      return  StudentFeeRecordDialog();
+                                      return StudentFeeRecordDialog(mdl: mdl,);
                                     });
                                   }),
                                 ),
@@ -157,12 +138,33 @@ class FeePriceStructure extends StatelessWidget {
                   SizedBox(
                     height: 1 * h,
                   ),
-                  SizedBox(
-                    width: 18*w,
-                    height: 06*h,
-                    child: CustomButton(text: 'Submit', onPressed: () {
-                      feeProvider.insertFeeData();
-                    }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                      SizedBox(
+                        width: 25*w,
+                        height: 06*h,
+                        child: CustomButton(
+                          isSelected: true,
+                            text: 'Show all Class Fee', onPressed: () {
+                          showDialog(context: context, builder: (context){
+                            feeProvider.getFeeByClassProvider();
+                            return const ShowAllClassFeeDialog();
+                          });
+                        }),
+                      ),
+
+                      SizedBox(width: 5*w,),
+                      SizedBox(
+                        width: 25*w,
+                        height: 06*h,
+                        child: CustomButton(text: 'Submit Fee', onPressed: () {
+                          feeProvider.insertFeeData();
+                        }),
+                      ),
+
+                    ],
                   ),
 
 
