@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/tabs/attendance_result.dart';
 import 'package:school_manegment_system/UI/tabs/exam_result.dart';
+import 'package:school_manegment_system/UI/tabs/expense.dart';
 import 'package:school_manegment_system/UI/tabs/fee_structure.dart';
 import 'package:school_manegment_system/UI/tabs/show_all_student.dart';
 import 'package:school_manegment_system/UI/tabs/student_add_from.dart';
@@ -87,8 +88,9 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                           height: h*6,
                           width: w*30,
-                          child: CustomButton(text: 'Students', onPressed:
-                                ()=>menuAapProvider.setIndexTab(1)
+                          child: CustomButton(
+                              text: 'Students', onPressed:
+                                ()=> menuAapProvider.setIndexTab(1),
                           )),
                       SizedBox(height: h*3,),
 
@@ -103,18 +105,27 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                           width: w*30,
                           height: h*6,
-                          child: CustomButton(text: 'Result', onPressed: ()=>
-                                menuAapProvider.setIndexTab(3)
+                          child: CustomButton(
+                            text: 'Result', onPressed: ()=>
+                                menuAapProvider.setIndexTab(3),
                           )),
                       SizedBox(height: h*3,),
                       SizedBox(
                           width: w*30,
                           height: h*6,
-                          child: CustomButton(text: 'Fee Structure', onPressed: ()=>
+                          child: CustomButton(
+                              text: 'Fee Structure', onPressed: ()=>
                                 menuAapProvider.setIndexTab(8)
                           )),
                       SizedBox(height: h*3,),
 
+                      SizedBox(
+                          width: w*30,
+                          height: h*6,
+                          child: CustomButton(text: 'Expense', onPressed: ()=>
+                              menuAapProvider.setIndexTab(12)
+                          )),
+                      SizedBox(height: h*3,),
 
                     ],
                   ),
@@ -125,7 +136,6 @@ class HomeScreen extends StatelessWidget {
                   width: 0.5 * w,
                   color: Colors.black,
                 ),
-
 
                 Container(
                   height: 100 * h,
@@ -185,7 +195,9 @@ class HomeScreen extends StatelessWidget {
                                 const FeePriceStructure():
                             menuAapProvider.indexTab==11?
                                 const ResultClass():
-                              Dashboard()
+                                menuAapProvider.indexTab == 12 ?
+                                    const Expense() :
+                              const Dashboard()
 
                           ],
                         ),

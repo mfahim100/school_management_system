@@ -2867,7 +2867,7 @@ Future<void> printDmcHighClasses(ResultProvider resultProvider) async {
   await Printing.sharePdf(bytes: await doc.save(), filename: 'my-document.pdf');
 }
 
-//////////////////////////\
+//////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\////////////////
 
 
   ///////Function to Print DMC of Middle and Primary Classes
@@ -5963,11 +5963,6 @@ Future<void> printFeeSlip(FeeProvider feeProvider, StudentsModels mdl) async {
       bytes: await doc.save(), filename: 'my-document.pdf');
 
 }
-
-
-
-
-
 
 
 

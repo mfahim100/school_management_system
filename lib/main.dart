@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/core/providers/attendance_provider.dart';
+import 'package:school_manegment_system/core/providers/auth_provider.dart';
 import 'package:school_manegment_system/core/providers/dashboard_provider.dart';
 import 'package:school_manegment_system/core/providers/fee_provider.dart';
 import 'package:school_manegment_system/core/providers/menu_aap_provider.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=> FeeProvider()),
         ChangeNotifierProvider(create: (_)=> DashBoardProvider()),
         ChangeNotifierProvider(create: (_)=> PrintingProvider()),
+        ChangeNotifierProvider(create: (_)=> AuthProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -44,14 +44,14 @@ class ViewStudentDetailScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+          
                      SizedBox(
                       height: 25 * h,
                       width:90*w,
-                      child: Image(
-                        // height: 25 * h,
-                        // width:100*w,
+                      child: const Image(
+                       fit: BoxFit.cover,
                         image: AssetImage(
-                            ''),
+                            'assets/images/school_admission_from.png'),
                       ),
                     ),
                     SizedBox(

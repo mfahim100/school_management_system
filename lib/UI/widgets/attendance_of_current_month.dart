@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:printing/printing.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/delete_button.dart';
 import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
-
 
 import '../../core/constant/constant_decoration.dart';
 import '../../core/models/AttendanceModel.dart';
 import '../../core/providers/attendance_provider.dart';
 
-import 'package:flutter/cupertino.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 class AttendanceOfCurrentMonth extends StatelessWidget {
   const AttendanceOfCurrentMonth({super.key});
@@ -189,82 +184,7 @@ class AttendanceOfCurrentMonth extends StatelessWidget {
                     SizedBox(
                       height: 5*h,
                       width: 15*w,
-                      child: StudentDetailButton(text: 'Print Data', onPressed: () async {
-                        final doc = pw.Document();
-                        doc.addPage(pw.Page(
-                            pageFormat: PdfPageFormat.standard,
-                            build: (pw.Context context){
-                              return pw.Container(
-                                height: 1100,
-                                width: 500,
-                                color: PdfColors.red,
-                                child: pw.Column(
-                                  children: [
-                                    pw.Row(
-                                      children:[
-                                        pw.Container(
-                                          height: 20,
-                                          width: 70,
-                                          decoration: pw.BoxDecoration(
-                                              color: PdfColors.white,
-                                              border: pw.Border.all(
-                                                  color: PdfColors.black
-                                              )
-                                          ),
-                                          child: pw.Center(
-                                            child: pw.Text('Adm.No')
-                                          ),
-
-                                        ),
-
-                                  pw.Container(
-                                      height: 20,
-                                      width: 90,
-                                      decoration: pw.BoxDecoration(
-                                        color: PdfColors.white,
-                                        border: pw.Border.all(
-                                          color: PdfColors.black
-                                        )
-                                      ),
-                                      child: pw.Center(
-                                          child: pw.Text('Name')
-                                      ),
-                                  ),
-
-                                        pw.Container(
-                                          height: 500,
-                                          width: 400,
-                                          decoration: pw.BoxDecoration(
-                                              color: PdfColors.white,
-                                              border: pw.Border.all(
-                                                  color: PdfColors.black
-                                              )
-                                          ),
-                                          child: pw.ListView.builder(
-                                              itemCount: 31,
-                                              itemBuilder: (context,index){
-                                                return pw.Container(
-                                                  decoration: pw.BoxDecoration(
-                                                    border: pw.Border.all(
-                                                      color: PdfColors.black
-                                                    ),
-                                                  ),
-                                                  child: pw.Text(index.toString()),
-                                                );
-                                        })
-                                          ),
-                                      ]
-                                    )
-                                  ]
-                                )
-                              );
-                        }
-                        ),);
-
-                        await Printing.sharePdf(bytes: await doc.save(), filename: 'my-document.pdf');
-
-
-                      }),
+                      child: StudentDetailButton(text: 'Print Data', onPressed: () async {}),
                     ),
                     SizedBox(
                       height: 5*h,

@@ -47,7 +47,7 @@ class CustomTextField extends StatelessWidget {
         labelText: labelText,
         prefixIcon: prefix,
         suffixIcon: suffix,
-       contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+       // contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
 
         // border: OutlineInputBorder(
         //   borderRadius: BorderRadius.circular(05),
