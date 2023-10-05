@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/home/home_screen.dart';
+import 'package:school_manegment_system/UI/tabs/credetail_dialog.dart';
 import 'package:school_manegment_system/core/constant/constant_text.dart';
 import 'package:school_manegment_system/core/providers/auth_provider.dart';
 import '../../core/constant/constant_decoration.dart';
@@ -102,11 +103,25 @@ class _SignInScreenState extends State<SignInScreen> {
                                   height: h*08,
                                   child: CustomButton(text: 'Sign In', onPressed: () {
                                     if(authProvider.authKey.currentState!.validate()){
-                                Navigator.of(context).push(MaterialPageRoute(builder: (builder){
-                                return const HomeScreen();
+                                      authProvider.logInProvider().then((value) {if(value){
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (builder){
+                                          return const HomeScreen();
+                                        }));
+                                        authProvider.clearController();
+                                      }
+                                      else{
+                                         showDialog(
+                                             barrierDismissible: false,
+                                             context: context, builder: (context){
+                                           return const CredentialDialog();
 
-                                }));
-                                authProvider.clearController();
+                                         });
+                                      }
+
+                                      });
+
+
+
                                     }
                                   }
                                   ),

@@ -99,7 +99,7 @@ class ResultClass extends StatelessWidget {
               SizedBox(
                   height: 5*h,
                   width: 20*w,
-                  child: CustomButton(text: 'Show All Class Result', onPressed: (){
+                  child: StudentDetailButton(text: 'Show All Class Result', onPressed: (){
                     resultProvider.getResultByClassProvider();
                     showDialog(
                         barrierDismissible: false,

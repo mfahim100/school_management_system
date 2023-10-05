@@ -147,9 +147,9 @@ class FeePriceStructure extends StatelessWidget {
                         height: 06*h,
                         child: CustomButton(
                           isSelected: true,
-                            text: 'Show all Class Fee', onPressed: () {
+                            text: 'Show all Class Fee', onPressed: () async  {
+                            feeProvider.getAllClassFeeProvider();
                           showDialog(context: context, builder: (context){
-                            feeProvider.getFeeByClassProvider();
                             return const ShowAllClassFeeDialog();
                           });
                         }),

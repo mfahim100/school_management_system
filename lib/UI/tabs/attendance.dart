@@ -92,8 +92,6 @@ class Attendance extends StatelessWidget {
                             menuAapProvider.setIndexTab(6);
                             attendanceProvider.getStudentByClassProvider('Nursury');
                           }),
-
-
                         ],
                       ),
                     ],

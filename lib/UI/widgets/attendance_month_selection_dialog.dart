@@ -3,14 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/widgets/attendance_of_selected_month.dart';
 import 'package:school_manegment_system/UI/widgets/custom_button.dart';
 import 'package:school_manegment_system/UI/widgets/drop_down_menu.dart';
-import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/constant/constant_decoration.dart';
 import 'package:school_manegment_system/core/constant/drop_down_menu_constant.dart';
-import 'package:school_manegment_system/core/models/AttendanceModel.dart';
 import 'package:school_manegment_system/core/providers/attendance_provider.dart';
 
-import 'attendance_of_current_month.dart';
-import 'delete_button.dart';
+
 
 class AttendanceMonthSelectionDialog extends StatelessWidget {
    const AttendanceMonthSelectionDialog({super.key});

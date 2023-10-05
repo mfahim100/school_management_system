@@ -79,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                           width: w*30,
                           height: h*6,
-                          child: CustomButton(text: 'Dashboard', onPressed:
+                          child: CustomButton(
+                            isSelected: menuAapProvider.indexTab==0,
+                              text: 'Dashboard', onPressed:
                                 ()=>menuAapProvider.setIndexTab(0)
                           ),
                       ),
@@ -89,6 +91,7 @@ class HomeScreen extends StatelessWidget {
                           height: h*6,
                           width: w*30,
                           child: CustomButton(
+                            isSelected: menuAapProvider.indexTab==1 || menuAapProvider.indexTab == 5|| menuAapProvider.indexTab == 4,
                               text: 'Students', onPressed:
                                 ()=> menuAapProvider.setIndexTab(1),
                           )),
@@ -97,7 +100,9 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                           width: w*30,
                           height: h*6,
-                          child: CustomButton(text: 'Attendance', onPressed:
+                          child: CustomButton(
+                              isSelected: menuAapProvider.indexTab==2 || menuAapProvider.indexTab==6,
+                              text: 'Attendance', onPressed:
                                 ()=>menuAapProvider.setIndexTab(2)
                           )),
 
@@ -106,6 +111,7 @@ class HomeScreen extends StatelessWidget {
                           width: w*30,
                           height: h*6,
                           child: CustomButton(
+                            isSelected: menuAapProvider.indexTab==3|| menuAapProvider.indexTab == 11,
                             text: 'Result', onPressed: ()=>
                                 menuAapProvider.setIndexTab(3),
                           )),
@@ -114,6 +120,7 @@ class HomeScreen extends StatelessWidget {
                           width: w*30,
                           height: h*6,
                           child: CustomButton(
+                              isSelected: menuAapProvider.indexTab==8|| menuAapProvider.indexTab == 10,
                               text: 'Fee Structure', onPressed: ()=>
                                 menuAapProvider.setIndexTab(8)
                           )),
@@ -122,7 +129,9 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                           width: w*30,
                           height: h*6,
-                          child: CustomButton(text: 'Expense', onPressed: ()=>
+                          child: CustomButton(
+                              isSelected: menuAapProvider.indexTab==12,
+                              text: 'Expense', onPressed: ()=>
                               menuAapProvider.setIndexTab(12)
                           )),
                       SizedBox(height: h*3,),

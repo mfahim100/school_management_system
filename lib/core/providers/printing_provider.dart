@@ -9,6 +9,7 @@ import 'package:school_manegment_system/core/providers/result_provider.dart';
 import '../constant/constant_text.dart';
 import '../models/DmcModels.dart';
 import '../models/Feemodel.dart';
+import '../models/all_class_fee_model.dart';
 
 class PrintingProvider extends ChangeNotifier{
 
@@ -5742,7 +5743,7 @@ Future<void> printFeeSlip(FeeProvider feeProvider, StudentsModels mdl) async {
                                       width: 115,
                                       child: pw.Column(
                                           children: [
-                                            pw.Text('Details Mark sheet ',
+                                            pw.Text('Student Fee Slip ',
                                                 style: pw.TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: pw.FontWeight
@@ -5929,7 +5930,7 @@ Future<void> printFeeSlip(FeeProvider feeProvider, StudentsModels mdl) async {
                               width: 220,
                               height: 25,
                               child: pw.Center(
-                                child: pw.Text('Total Fee)',
+                                child: pw.Text('Total Fee',
                                     style: pw.TextStyle(
                                         fontSize: 14,
                                         fontWeight: pw.FontWeight.bold
@@ -5966,4 +5967,331 @@ Future<void> printFeeSlip(FeeProvider feeProvider, StudentsModels mdl) async {
 
 
 
+
+
+
+///////// printing Function of all class fe slips//////////
+
+Future<void> printAllClassFeeSlips(FeeProvider feeProvider) async {
+  final doc = pw.Document();
+  doc.addPage(
+    pw.MultiPage(pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return [
+            pw.ListView.builder(
+                itemCount: feeProvider.allClassFee.length,
+                itemBuilder: (context,index){
+                  AllClassFeeModel allStd = feeProvider.allClassFee[index];
+                  StudentsModels stmdl = allStd.studentsModels!;
+                  return pw.Container(
+                      child: pw.Column(
+                          children: [
+                            pw.Container(
+                              height: 100,
+                              child: pw.Row(
+                                  children: [
+
+                                    ///Image Logo Container///
+                                    pw.Container(
+                                        width: 100,
+                                        color: PdfColors.grey
+                                    ),
+
+                                    /// School Name Container
+
+                                    pw.Container(
+                                        width: 377,
+                                        child: pw.Column(
+                                            children: [
+                                              pw.SizedBox(height: 15),
+
+                                              /// school Name
+                                              pw.SizedBox(
+                                                width: 350,
+                                                child: pw.Column(
+                                                    children: [
+                                                      pw.Text(ConstantText.schoolName,
+                                                          style: pw.TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight: pw.FontWeight
+                                                                .bold,
+                                                          )),
+                                                      pw.Divider(height: 5),
+                                                    ]
+                                                ),
+                                              ),
+
+                                              ///school Adresss
+
+                                              pw.SizedBox(height: 8),
+                                              pw.SizedBox(
+                                                width: 175,
+                                                child: pw.Column(
+                                                    children: [
+                                                      pw.Text(ConstantText.dmcAddress,
+                                                          style: pw.TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight: pw.FontWeight
+                                                                .bold,
+                                                          )),
+                                                      pw.Divider(height: 5),
+                                                    ]
+                                                ),
+                                              ),
+
+                                              ///Detailed Marks Certificate
+                                              pw.SizedBox(height: 8),
+                                              pw.SizedBox(
+                                                width: 115,
+                                                child: pw.Column(
+                                                    children: [
+                                                      pw.Text('Student Fee Slip ',
+                                                          style: pw.TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight: pw.FontWeight
+                                                                .bold,
+                                                          )),
+                                                      pw.Divider(height: 5),
+                                                    ]
+                                                ),
+                                              ),
+
+
+                                            ]
+                                        )
+                                    ),
+
+                                  ]
+                              ),
+                            ),
+
+                            pw.SizedBox(height: 10),
+
+
+                            ///// Informative Container
+                            pw.Container(
+                                height: 70,
+                                width: 500,
+                                decoration: pw.BoxDecoration(
+                                    border: pw.Border.all(
+                                        color: PdfColors.black
+                                    ),
+                                    borderRadius: pw.BorderRadius.circular(05)
+                                ),
+                                child: pw.Column(
+                                    children: [
+                                      //// Name And Father Name
+                                      pw.Padding(padding: const pw.EdgeInsets.all(05),
+                                        child: pw.Row(
+                                            children: [
+                                              pw.Container(
+                                                  width: 220,
+                                                  height: 25,
+                                                  child: pw.Center(
+                                                    child: pw.Text('Name: ${stmdl.name}',
+                                                        style: pw.TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight: pw.FontWeight.bold
+                                                        )),
+                                                  )
+                                              ),
+
+                                              pw.Container(
+                                                  width: 250,
+                                                  height: 25,
+                                                  child: pw.Center(
+                                                    child: pw.Text('Father Name: ${stmdl.fatherName}',
+                                                        style: pw.TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight: pw.FontWeight.bold
+                                                        )),
+                                                  )
+                                              ),
+
+
+                                            ]
+                                        ),
+                                      ),
+
+                                      ///Admission number And class
+                                      pw.Padding(padding: const pw.EdgeInsets.all(05),
+                                        child: pw.Row(
+                                            children: [
+                                              pw.Container(
+                                                  width: 220,
+                                                  height: 25,
+                                                  child: pw.Center(
+                                                    child: pw.Text('Class: ${stmdl.admittedClass}',
+                                                        style: pw.TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight: pw.FontWeight.bold
+                                                        )),
+                                                  )
+                                              ),
+
+                                              pw.Container(
+                                                  width: 250,
+                                                  height: 25,
+                                                  child: pw.Center(
+                                                    child: pw.Text('Admission number: ${stmdl.admissionNumber}',
+                                                        style: pw.TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight: pw.FontWeight.bold
+                                                        )),
+                                                  )
+                                              ),
+
+
+                                            ]
+                                        ),
+                                      ),
+                                    ]
+                                )
+                              // child:
+                            ),
+
+                            pw.SizedBox(height: 20),
+
+
+                            pw.Container(
+                                height: 300,
+                                decoration: pw.BoxDecoration(
+                                    border: pw.Border.all(
+                                        color: PdfColors.black
+                                    )
+                                ),
+                                child: pw.ListView.builder(
+                                    itemCount: allStd.feeModel!.length,
+                                    itemBuilder: (context,index){
+                                      FeeModels mdl = allStd.feeModel![index];
+                                      DateTime dt =
+                                      DateTime.fromMillisecondsSinceEpoch(mdl.month!);
+                                      String month =
+                                          '${dt.month == 1 ? 'January' : dt.month == 2 ? 'February' : dt.month == 3 ? 'March' : dt.month == 4 ? 'April' : dt.month == 5 ? 'May' : dt.month == 6 ? 'June' : dt.month == 7 ? 'July' : dt.month == 8 ? 'August' : dt.month == 9 ? 'September' : dt.month == 10 ? 'October' : dt.month == 11 ? 'November' : 'December'} ${dt.year}';
+                                      return pw.Padding(padding: const pw.EdgeInsets.all(05),
+                                        child: pw.Column(
+                                            children:[
+                                              pw.Row(
+                                                  children: [
+                                                    pw.Container(
+                                                        width: 150,
+                                                        height: 25,
+                                                        child: pw.Center(
+                                                          child: pw.Text(month,
+                                                              style: pw.TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight: pw.FontWeight.bold
+                                                              )),
+                                                        )
+                                                    ),
+
+                                                    pw.Container(
+                                                        width: 150,
+                                                        height: 25,
+                                                        child: pw.Center(
+                                                          child: pw.Text(mdl.monthlyFee.toString(),
+                                                              style: pw.TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight: pw.FontWeight.bold
+                                                              )),
+                                                        )
+                                                    ),
+
+                                                    pw.Container(
+                                                        width: 150,
+                                                        height: 25,
+                                                        child: pw.Center(
+                                                          child: pw.Text(mdl.monthlyFeeStatus==0? 'Unpaid': 'Paid',
+                                                              style: pw.TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight: pw.FontWeight.bold
+                                                              )),
+                                                        )
+                                                    ),
+
+
+
+
+                                                  ]
+                                              ),
+
+                                            ]
+                                        ),
+                                      );
+
+
+
+                                    })
+                            ),
+
+
+                            pw.Container(
+                              height: 20,
+                              decoration: pw.BoxDecoration(
+                                  border: pw.Border.all(
+                                      color: PdfColors.black
+                                  )
+                              ),
+
+                              child: pw.Row(
+                                  children: [
+                                    pw.Container(
+
+                                        width: 220,
+                                        height: 25,
+                                        child: pw.Center(
+                                          child: pw.Text('Total Fee',
+                                              style: pw.TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: pw.FontWeight.bold
+                                              )),
+                                        )
+                                    ),
+
+                                    pw.Container(
+                                        width: 250,
+                                        height: 25,
+                                        child: pw.Center(
+                                          child: pw.Text(allStd.totalFee.toString(),
+                                              style: pw.TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: pw.FontWeight.bold
+                                              )),
+                                        )
+                                    ),
+
+
+                                  ]
+                              ),
+                            )
+
+
+
+
+
+
+                          ]
+                      )
+                  );
+                }
+
+            )
+          ];
+
+
+        }
+    ),
+  );
+
+  await Printing.sharePdf(bytes: await doc.save(), filename: 'my-document.pdf');
+
 }
+
+
+
+}
+
+
+
+
+

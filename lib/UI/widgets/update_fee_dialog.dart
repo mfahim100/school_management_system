@@ -29,7 +29,7 @@ class UpdateFeeDialog extends StatelessWidget {
         builder: (context, feeProvider, child) {
           return Container(
             width: 40 * w,
-            height: 25 * h,
+            height: 30 * h,
             decoration: ConstantDecoration.adminPanelContainer,
             child: Padding(
               padding: EdgeInsets.all(1 * w),
@@ -48,21 +48,24 @@ class UpdateFeeDialog extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+
+                      StudentDetailButton(
+                        text: 'Yes',
+                        onPressed: () async {
+                         await feeProvider.updateMonthLyFeeProvider(admissionNumber, month);
+                         await feeProvider.getFeeByAdmissionNumberProvider(admissionNumber!);
+                         await feeProvider.getUnpaidFeeProvider(admissionNumber!);
+
+
+                          Navigator.of(context).pop();
+                        },
+                      ),
+
                       DeleteButton(
                           text: 'Cancel',
                           onPressed: () {
                             Navigator.of(context).pop();
                           }),
-                      StudentDetailButton(
-                        text: 'Yes',
-                        onPressed: () {
-                          feeProvider.updateMonthLyFeeProvider(admissionNumber, month);
-                         feeProvider.getFeeByAdmissionNumberProvider(admissionNumber);
-                         feeProvider.getUnpaidFeeProvider(admissionNumber);
-
-                          Navigator.of(context).pop();
-                        },
-                      )
                     ],
                   )
                 ],

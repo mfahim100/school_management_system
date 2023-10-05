@@ -382,7 +382,7 @@ class StudentFormProvider extends ChangeNotifier {
       guardianRelation: guardianRelation,
       guardianCNIC: int.parse(guardianCnic),
       guardianMobile: int.parse(guardianMobile),
-      admissionNumber: int.parse(admissionNumber),
+      admissionNumber: 0,
       admittedClass: admittedClass,
       admissionDate: doaDate.millisecondsSinceEpoch,
       admissionFee: int.parse(admissionFee),

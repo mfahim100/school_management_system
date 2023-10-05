@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../models/Feemodel.dart';
 import '../models/StudentsModels.dart';
+import '../models/all_class_fee_model.dart';
 import '../services/database_services.dart';
 
 class FeeProvider extends ChangeNotifier {
@@ -52,13 +53,13 @@ class FeeProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  setExamFeeToAllStudents() {
-    for (int i=0; i<examFeeControllers.length; i++) {
-      examFeeControllers[i].text=examFeeSelection.text;
-    }
-    notifyListeners();
-  }
+  //
+  // setExamFeeToAllStudents() {
+  //   for (int i=0; i<examFeeControllers.length; i++) {
+  //     examFeeControllers[i].text=examFeeSelection.text;
+  //   }
+  //   notifyListeners();
+  // }
 
 
   String _monthSelection = "";
@@ -66,65 +67,65 @@ class FeeProvider extends ChangeNotifier {
   setMonth(String val) {
     _monthSelection = val;
     print(_monthSelection);
+
     notifyListeners();
   }
 
   int? decideMonth(){
 
     if(_monthSelection == 'January'){
-      return DateTime(DateTime.now().year,DateTime.january,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.january).millisecondsSinceEpoch;
     }
     else if(_monthSelection == 'February'){
-      return DateTime(DateTime.now().year,DateTime.february,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.february).millisecondsSinceEpoch;
     }
 
     else if(_monthSelection == 'March'){
-      return DateTime(DateTime.now().year,DateTime.march,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.march).millisecondsSinceEpoch;
     }
 
     else if(_monthSelection == 'April'){
-      return DateTime(DateTime.now().year,DateTime.april,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.april).millisecondsSinceEpoch;
     }
 
     else if(_monthSelection == 'May'){
-      return DateTime(DateTime.now().year,DateTime.may,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.may).millisecondsSinceEpoch;
     }
 
 
     else if(_monthSelection == 'June'){
-      return DateTime(DateTime.now().year,DateTime.june,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.june).millisecondsSinceEpoch;
     }
 
 
     else if(_monthSelection == 'July'){
-      return DateTime(DateTime.now().year,DateTime.july,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.july).millisecondsSinceEpoch;
     }
 
 
     else if(_monthSelection == 'August'){
-      return DateTime(DateTime.now().year,DateTime.august,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.august).millisecondsSinceEpoch;
     }
 
     else if(_monthSelection == 'September'){
-      return DateTime(DateTime.now().year,DateTime.september,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.september).millisecondsSinceEpoch;
     }
 
     else if(_monthSelection == 'October'){
-      return DateTime(DateTime.now().year,DateTime.october,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.october).millisecondsSinceEpoch;
     }
 
     else if(_monthSelection == 'November'){
-      return DateTime(DateTime.now().year,DateTime.november,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.november).millisecondsSinceEpoch;
     }
     else if(_monthSelection == 'December'){
-      return DateTime(DateTime.now().year,DateTime.december,DateTime.now().day).millisecondsSinceEpoch;
+      return DateTime(DateTime.now().year,DateTime.december).millisecondsSinceEpoch;
     }
 
     else {
       return null;
     }
   }
-
 
   int _totalFee = 0;
   int  get totalFee => _totalFee;
@@ -138,8 +139,8 @@ class FeeProvider extends ChangeNotifier {
       _totalFee = _totalFee + getUnpaidFeeList[i].monthlyFee!;
       print(_totalFee);
     }
-
     print('total fee is ${_totalFee.toString()}');
+    notifyListeners();
   }
 
 
@@ -159,7 +160,7 @@ class FeeProvider extends ChangeNotifier {
         monthlyFee: monthlyFee,
         examFee: 0,
         fineFee: 0,
-        totalFee: monthlyFee+0+_totalFee,
+        totalFee: 0,
         monthlyFeeStatus: 0,
         examFeeStatus: 0,
         fineFeeStatus: 0
@@ -174,6 +175,9 @@ class FeeProvider extends ChangeNotifier {
   }
 
 
+
+
+
   List<FeeModels> getFeeByAdmissionNumberList = [];
   Future<void> getFeeByAdmissionNumberProvider(int admissionNumber) async {
     getFeeByAdmissionNumberList.clear();
@@ -183,8 +187,10 @@ class FeeProvider extends ChangeNotifier {
     print(getFeeByAdmissionNumberList.length);
     print("___________________________________");
     notifyListeners();
-
   }
+
+
+
 
   List<FeeModels> getFeeByClass = [];
   Future<void> getFeeByClassProvider()async {
@@ -203,21 +209,25 @@ class FeeProvider extends ChangeNotifier {
 
 
   Future<void> updateMonthLyFeeProvider(int admissionNumber, month) async {
+    print("Before paid : $_totalFee");
     DatabaseServices db = DatabaseServices();
-    db.updateMonthLyFeeStatus(admissionNumber, month);
+    await db.updateMonthLyFeeStatus(admissionNumber, month);
+    await getFeeByAdmissionNumberProvider(admissionNumber);
+    print("After paid : $_totalFee");
     notifyListeners();
   }
 
 
 
 
+  List<AllClassFeeModel> allClassFee = [];
+  Future<void> getAllClassFeeProvider()async{
+    allClassFee.clear();
+    DatabaseServices db = DatabaseServices();
+    allClassFee = await db.getAllClassWithFee(_curruntClass);
+    notifyListeners();
 
-
-
-
-
-
-
+  }
 
 
 

@@ -96,7 +96,6 @@ class AttendanceProvider extends ChangeNotifier {
     notifyListeners();
   }
   int decideMonth(){
-
     if(_monthSelection == 'January'){
       return DateTime(DateTime.now().year,DateTime.january).millisecondsSinceEpoch;
     }
@@ -148,6 +147,7 @@ class AttendanceProvider extends ChangeNotifier {
     }
 
     }
+
 
 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_manegment_system/UI/auth/sign_in_screen.dart';
+import 'package:school_manegment_system/UI/widgets/student_detail_button.dart';
 import 'package:school_manegment_system/core/providers/dashboard_provider.dart';
 import 'package:school_manegment_system/pie_grapg_widgets/my_bar_chart.dart';
 import 'package:school_manegment_system/pie_grapg_widgets/my_pie_graph.dart';
@@ -54,40 +55,12 @@ class Dashboard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 40 * w,
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    'Muhammad Fahim',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 1.8 * w,
-                                        color: Colors.white),
-                                  ),
-                                  SizedBox(
-                                    width: 2 * w,
-                                  ),
-                                  CircleAvatar(
-                                    backgroundColor: Colors.green,
-                                    radius: 2 * w,
-                                  ),
-                                  SizedBox(
-                                    width: 1 * w,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-                                        return const SignInScreen();
-                                      }));
-                                    },
-                                    icon: const Icon(
-                                      Icons.logout,
-                                      color: Colors.white,
-                                      size: 35,
-                                    ),
-                                  )
-                                ]),
+                            width: 15 * w,
+                            child: StudentDetailButton(text: 'Log Out', onPressed: (){
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
+                                return const SignInScreen();
+                              }));
+                            }),
                           ),
                         ],
                       )),

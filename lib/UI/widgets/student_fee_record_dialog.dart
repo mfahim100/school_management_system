@@ -161,6 +161,7 @@ class StudentFeeRecordDialog extends StatelessWidget {
                                         {}
                                     :
                                     showDialog(
+                                      barrierDismissible: false,
                                         context: context,
                                         builder: (context) {
                                           return UpdateFeeDialog(
@@ -171,6 +172,7 @@ class StudentFeeRecordDialog extends StatelessWidget {
                                             mmmonth: month,
                                           );
                                         });
+                                    feeProvider.getUnpaidFeeProvider(mdl.admissionNumber!);
                                   },
                                 ),
                                 SizedBox(

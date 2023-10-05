@@ -40,11 +40,6 @@ class StudentProvider extends ChangeNotifier{
 
 
 
- String dobbb='Date Of Birth';
-
-  void checkFunction(){
-    print(dobbb);
-  }
 
 
 }

@@ -250,7 +250,7 @@ class StudentAddForm extends StatelessWidget {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       StudentTextFormField(
-                                        controller: studentFormProvider.admissionNumber,
+                                        // controller: studentFormProvider.admissionNumber,
                                        // validator: studentFormProvider.admissionNumberValidator,
                                         hintText: 'Admission Number',
                                         labelText: 'Enter Admission Number',
