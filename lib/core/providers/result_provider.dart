@@ -170,6 +170,21 @@ class ResultProvider extends ChangeNotifier{
 
 
 
+  void clearController(){
+     _englishController.clear();
+     _urduController.clear();
+     _mathsController.clear();
+     _islamiatController.clear();
+     _pakStudyController.clear();
+     _biologyController.clear();
+     _chemistryController.clear();
+     _physicsController.clear();
+
+  }
+
+
+
+
 ///////////////// Primary And Middle Class Validator///////////////////
 
   String? englishValidatorOfPrimaryMiddle(String? txt){
@@ -320,7 +335,9 @@ class ResultProvider extends ChangeNotifier{
     DatabaseServices db = DatabaseServices();
     db.addStudentDmc(mdl);
     print('Every thing gone Find');
+    clearController();
     notifyListeners();
+
 
   }
 
@@ -380,6 +397,7 @@ class ResultProvider extends ChangeNotifier{
     DatabaseServices db = DatabaseServices();
     db.addStudentDmc(mdl);
     print('Every thing gone Find');
+    clearController();
     notifyListeners();
 
   }

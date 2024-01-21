@@ -67,7 +67,6 @@ class FeeProvider extends ChangeNotifier {
   setMonth(String val) {
     _monthSelection = val;
     print(_monthSelection);
-
     notifyListeners();
   }
 

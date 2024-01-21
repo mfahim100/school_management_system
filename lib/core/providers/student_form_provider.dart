@@ -391,7 +391,7 @@ class StudentFormProvider extends ChangeNotifier {
     await db.addStudent(std);
     print('Every thing gone Find');
     EasyLoading.dismiss();
-    // clearController();
+    clearController();
     notifyListeners();
 
 
