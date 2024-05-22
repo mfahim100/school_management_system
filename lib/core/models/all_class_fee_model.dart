@@ -32,4 +32,9 @@ class AllClassFeeModel{
     feeModel = json['feeModel'];
   }
 
+
+
+
+
 }
+

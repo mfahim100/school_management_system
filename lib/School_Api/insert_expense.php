@@ -22,8 +22,6 @@ $Total = $_REQUEST['Total'];
 
 
 
-
-
 include "config.php";
 
 

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
 import 'package:school_manegment_system/core/services/database_services.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
